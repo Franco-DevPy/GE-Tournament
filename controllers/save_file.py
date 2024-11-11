@@ -22,16 +22,15 @@ save_json = {
 
 ## con DUMP no usamos .write, usamos el FP=burrfer que necesitamos, es decir archivo que escribimo
 
-def save_json_file(data : dict ):
-        if not isinstance(data, dict):
+def save_json_file(data : list ):
+        if not isinstance(data, list):
             print("Erreur, L'argument est pas un dictionaire de data ")
             return
                 
         os.makedirs("data", exist_ok=True)
-        with open("data/SampleDump.json", "w") as file:
+        with open("data/SampleDumpSI.json", "w") as file:
             json.dump(data, file, indent=4)
             print('Fichier Json Savegarde')
             return
 
 
-save_json_file(save_json)

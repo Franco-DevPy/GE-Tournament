@@ -3,6 +3,8 @@ from colorama import Fore, Back, Style, init
 import re
 import datetime
 import time
+from controllers.save_file import save_json_file
+
 
 
 regex_id = r'^[A-Z]{2}\d{5}$'
@@ -35,7 +37,8 @@ def ajouter_joueur():
            print(Fore.RED + "L'identifiant national est invalide")
     
     new_joueur =  Joueur( nom , prenom, date_format, nombre_id)
-    liste_joueur.append(new_joueur)   
+    liste_joueur.append(new_joueur)
+    save_json_file(new_joueur)
     print(Back.GREEN + "  New Player Created :  ")
     print(new_joueur)
     
@@ -54,10 +57,11 @@ def get_liste_joueur():
 
 
 
-def voir_liste_joueur():
-    print(Back.CYAN + "LISTE DE JOUEURler : ")
-    for joeur in liste_joueur:
-        print(joeur)
+def voir_liste_joueur( all_joueur : list):
+    print(Back.CYAN + Fore.BLACK + "LISTE DES JOUEURS : ")
+    for joeur in all_joueur:
+        print(joeur,"\n")
+    
     
     
 

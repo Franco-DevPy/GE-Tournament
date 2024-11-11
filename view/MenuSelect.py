@@ -23,9 +23,10 @@ custom_style = QuestionaryStyle([
 ])
 
 def start_app():
-    
-    print( Back.CYAN + "-----Bienvenue a Tournois D'echec-----")
-    
+  
+    print(Back.CYAN + Fore.BLACK + 
+        """♟ ♜  ♞  ♝  ♛  - - BIENVENUE A TOURNOIS D'ECHEC - -  ♚  ♝  ♞  ♜  ♟ """ 
+        + Style.RESET_ALL)
     select_menu = [
           "Creér un Tournois",
           "Gestion du Joueur",
@@ -114,22 +115,19 @@ def menu_joueur():
             
            
             if not liste:
-                print(Back.RED + 'LISTE DES JOUEUR VIDE')
+                print(Back.RED + Fore.BLACK + 'LISTE DES JOUEUR VIDE')
                 menu_back()
+                    
+            voir_liste_joueur(liste)
+            time.sleep(5)
+            respuesta2 = select(
+            message = 'Choisisez une option : ',
+            choices = select_sub_menu,
+            style = custom_style,
+            ).ask()
                 
-                
-                
-                
-            # voir_liste_joueur()
-            # time.sleep(10)
-            # respuesta2 = select(
-            # message = 'Choisisez une option : ',
-            # choices = select_sub_menu,
-            # style = custom_style,
-            # ).ask()
-                
-            # if respuesta2 == "Revenir au Menu":
-            #         resetApp()
+            if respuesta2 == "Revenir au Menu":
+                    resetApp()
             
         except :
             print("Error al cargar...")
@@ -201,7 +199,6 @@ def resetApp():
 
 
 def exit_app():
-    try:
-        exit()
-    except:
-        print('APP Fermé')
+    clear_console()
+    exit()
+    
