@@ -59,7 +59,7 @@ def start_app():
 
 
 def menu_joueur():
-    print( Back.BLUE + " Gérer les Joueurs")
+    print( Back.BLUE + "-----Gérer les Joueurs-----")
     
     select_menu = [
         "Ajouter un Joueur",
@@ -71,6 +71,10 @@ def menu_joueur():
         "Revenir au Menu",
     ]
     
+    select_back = [
+        "Ajouter un Joueur",
+        "Revenir au Menu"
+    ]
     
    
     
@@ -81,27 +85,24 @@ def menu_joueur():
     ).ask()
     
     
-    select_back = [
-        "Ajouter un Joueur",
-        "Revenir au Menu"
-    ]
-    
     
     if respuesta == 'Ajouter un Joueur':
-        ajouter_joueur()
-        
-        reponse = select(
-        message = 'Choisisez une option : ',
-        choices= select_back,
-        style= custom_style,
-        ).ask()
-        if reponse == "Ajouter un Joueur,":
+        continuer = True
+        while continuer == True :
+            print( Back.BLUE + "-----Ajouter un Joueur-----")
             ajouter_joueur()
+            reponse = select(
+            message = 'Choisisez une option : ',
+            choices= select_back,
+            style= custom_style,
+            ).ask()
+                
+            if reponse == "Revenir au Menu":
+                    break
+                
+        
+        resetApp()
             
-        
-        if reponse == "Revenir au Menu":
-            resetApp()
-        
         
     
     if respuesta == 'Voir Liste de Joueur':
@@ -113,7 +114,7 @@ def menu_joueur():
             
            
             if not liste:
-                print(Fore.RED + 'LISTE DES JOUEUR VIDE')
+                print(Back.RED + 'LISTE DES JOUEUR VIDE')
                 menu_back()
                 
                 
