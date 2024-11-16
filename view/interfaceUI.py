@@ -1,6 +1,7 @@
 import flet as ft
 import time
 
+
 # Simulamos la terminal
 async def main_ui(page: ft.Page):
     page.window.width = 900
@@ -28,7 +29,11 @@ async def main_ui(page: ft.Page):
 
         menu_buttons.controls.clear()
         for option in select_menu:
-            menu_buttons.controls.append(ft.ElevatedButton(option, on_click=lambda e, opt=option: handle_main_menu(opt)))
+            menu_buttons.controls.append(
+                ft.ElevatedButton(
+                    option, on_click=lambda e, opt=option: handle_main_menu(opt)
+                )
+            )
         menu_buttons.update()
 
     # Función para manejar las opciones del menú principal
@@ -56,7 +61,11 @@ async def main_ui(page: ft.Page):
 
         menu_buttons.controls.clear()
         for option in select_menu:
-            menu_buttons.controls.append(ft.ElevatedButton(option, on_click=lambda e, opt=option: handle_joueur_menu(opt)))
+            menu_buttons.controls.append(
+                ft.ElevatedButton(
+                    option, on_click=lambda e, opt=option: handle_joueur_menu(opt)
+                )
+            )
         menu_buttons.update()
 
     # Función para manejar las opciones del submenú de jugadores
@@ -113,11 +122,8 @@ async def main_ui(page: ft.Page):
     # Inicia la app
     start_app()
 
+
 ft.app(target=main_ui)
-
-
-
-
 
 
 """
