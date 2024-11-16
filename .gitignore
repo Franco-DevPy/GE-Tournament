@@ -6,7 +6,8 @@
 __pycache__/
 
 # Ignorar archivos de configuración de tu entorno
-.env
+.venv
+venv/
 
 
 
