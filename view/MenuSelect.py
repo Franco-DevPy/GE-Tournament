@@ -61,9 +61,6 @@ def start_app():
         print("Dernier tournois....")
 
     if respuesta == "Exit":
-        clear_console()
-        print("Exit...")
-        time.sleep(1)
         exit_app()
 
 
@@ -102,12 +99,12 @@ def menu_joueur():
             if reponse == "Revenir au Menu":
                 break
 
-        resetApp()
+        return resetApp()
 
     if respuesta == "Voir Liste de Joueur":
         try:
             print("Cargando lista...")
-            time.sleep(2)
+            time.sleep(1)
 
             liste = get_liste_joueur()
 
@@ -116,7 +113,6 @@ def menu_joueur():
                 menu_back()
 
             voir_liste_joueur(liste)
-            time.sleep(5)
             respuesta2 = select(
                 message="Choisisez une option : ",
                 choices=select_sub_menu,
@@ -125,9 +121,9 @@ def menu_joueur():
 
             if respuesta2 == "Revenir au Menu":
                 resetApp()
-
-        except:
-            print("Error al cargar...")
+        # BaseExcept
+        except Exception:
+            print("Error al cargar lista de jugadores...")
             time.sleep(5)
             respuesta2 = select(
                 message="Choisisez une option : ",
@@ -191,4 +187,34 @@ def resetApp():
 
 def exit_app():
     clear_console()
+    time.sleep(1)
+    print(
+        Fore.CYAN
+        + r"""        
+-----------------------------------------------------------------       
+                                                     _:_
+                                                    '-.-'
+                                           ()      __.'.__
+                                        .-:--:-.  |_______|
+                                 ()      \____/    \=====/
+                                 /\      {====}     )___(
+                      (\=,      //\\      )__(     /_____\
+      __    |'-'-'|  //  .\    (    )    /____\     |   |
+     /  \   |_____| (( \_  \    )__(      |  |      |   |
+     \__/    |===|   ))  `\_)  /____\     |  |      |   |
+    /____\   |   |  (/     \    |  |      |  |      |   |
+     |  |    |   |   | _.-'|    |  |      |  |      |   |
+     |__|    )___(    )___(    /____\    /____\    /_____\
+    (====)  (=====)  (=====)  (======)  (======)  (=======)
+    }===={  }====={  }====={  }======{  }======{  }======={
+   (______)(_______)(_______)(________)(________)(_________)   
+-----------------------------------------------------------------
+            _     ___ ___ ___ _  _ _____ ___ _____ _ 
+           /_\   | _ )_ _| __| \| |_   _/ _ \_   _| |
+          / _ \  | _ \| || _|| .` | | || (_) || | |_|
+         /_/ \_\ |___/___|___|_|\_| |_| \___/ |_| (_)                                            
+----------------------------------------------------------------- 
+"""
+    )
     exit()
+    return

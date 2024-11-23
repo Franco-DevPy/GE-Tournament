@@ -60,18 +60,20 @@ def save_data_file_players(players: list):
     if not isinstance(players, list):
         print("Error, argument is not a players list ")
         return
+    players.sort(key=lambda jugador: jugador["nom"])
     data = json.dumps(players)
     print(data)
     Path("data/players.json").write_text(data)
     print(Back.CYAN + "Les joueurs ont été sauvegardés avec succès")
 
 
+# como probar funciones ? cuando hay varias en la app
 def load_data_file_players():
     try:
         data = Path("data/players.json").read_text(encoding="utf-8")
-        # print("la data es ", data)
         players_dict = json.loads(data)
         try:
+            # returna un dict
             return players_dict
         except:
             print(Back.RED + "player load ERROR")

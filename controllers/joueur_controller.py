@@ -11,10 +11,11 @@ regex_id = r"^[A-Z]{2}\d{5}$"
 
 init(autoreset=True)
 
-liste_joueur = []
-
 
 def ajouter_joueur():
+
+    reponse_liste = get_liste_joueur()
+
     nom = input("Entrez le nom du joueur : ")
     prenom = input("Entrez le prenom du joueur : ")
     while True:
@@ -35,21 +36,49 @@ def ajouter_joueur():
             print(Fore.RED + "L'identifiant national est invalide")
 
     new_joueur = Joueur(nom, prenom, date_format, nombre_id)
-    liste_joueur.append(new_joueur)
+    new_dict_joueur = new_joueur.to_dict()
 
-    liste_dict = [joueur.to_dict() for joueur in liste_joueur]
+    reponse_liste.append(new_dict_joueur)
 
-    save_data_file_players(liste_dict)
+    # ERROR YA ES UN DICTIONARIO
+    # liste_dict = [joueur.to_dict() for joueur in reponse_liste]
+    ##total_list = liste_dict + reponse_liste
+
+    save_data_file_players(reponse_liste)
     print(Back.GREEN + "  New Player Created :  ")
     print(new_joueur)
 
 
 def get_liste_joueur():
     player_dict = load_data_file_players()
-    # print("la lista de joueur est : ", player_dict)
+    player_dict.sort(key=lambda jugador: jugador["nom"])
+
     return player_dict
 
 
-def voir_liste_joueur(all_joueur: list):
-    print(Back.CYAN + Fore.BLACK + "LISTE DES JOUEURS : ")
-    print(type(all_joueur))
+# ACA PUEDO HACER UNA TYPO DE EL LA CLASSE O UN ENUM PARA QUE ASEGUREMOS Y DETECTE "la classe jugador"
+def voir_liste_joueur(all_joueur):
+    print(Back.CYAN + Fore.BLACK + "LISTE DES JOUEURS :" + Style.RESET_ALL)
+    for joueur in all_joueur:
+        print(Fore.GREEN + "Nom:" + Fore.WHITE + joueur["nom"])
+        print(Fore.GREEN + "Prénom:" + Fore.WHITE + joueur["prenom"])
+        print(Fore.GREEN + "ID National:" + Fore.WHITE + joueur["id_national"])
+        print(
+            Fore.GREEN
+            + "Matchs Gagnés:"
+            + Fore.WHITE
+            + str(joueur.get("match_gagne", 0))
+        )
+        print(
+            Fore.GREEN
+            + "Matchs Perdus:"
+            + Fore.WHITE
+            + str(joueur.get("match_perdu", 0))
+        )
+        print(
+            Fore.GREEN
+            + "Matchs Totals:"
+            + Fore.WHITE
+            + str(joueur.get("match_total", 0))
+            + "\n"
+        )

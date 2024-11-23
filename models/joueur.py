@@ -19,6 +19,7 @@ class Joueur:
         )
 
     def __repr__(self):
+        print("Repr")
         return f"Joueur({self.nom}, {self.prenom}, ID: {self.id_national})"
 
     def gagner_match(self):
