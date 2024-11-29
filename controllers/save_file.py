@@ -2,60 +2,10 @@ import json
 from pathlib import Path
 import os
 from colorama import Fore, Back
+from models.joueur import Joueur
 
 
-# save_json = {
-#     "nom_joueur": "Juan",
-#     "partie_gagne": 2,
-#     " match_gagne": 5,
-#     "dernier_rival": "Thoma",
-# }
-
-# players = [
-#     {
-#         "id": 1,
-#         "nom_joueur": "Juan",
-#         "partie_gagne": 2,
-#         "match_gagne": 5,
-#         "dernier_rival": "Thoma",
-#     },
-#     {
-#         "id": 2,
-#         "nom_joueur": "Thoma",
-#         "partie_gagne": 2,
-#         "match_gagne": 5,
-#         "dernier_rival": "Juan",
-#     },
-#     {
-#         "id": 3,
-#         "nom_joueur": "Thoma",
-#         "partie_gagne": 2,
-#         "match_gagne": 5,
-#         "dernier_rival": "Juan",
-#     },
-# ]
-
-# PATH AND JSON FOR SAVE FILE
-# data = json.dumps(players)
-
-# Path("players.json").write_text(data)
-
-# # PATH AND JSON FOR LOAD FILE
-
-# data = Path("players.json").read_text(encoding="utf-8")
-
-# Players_load = json.loads(data)
-
-# print(Players_load)
-
-# # PATH AND JSON FOR EDIT FILE
-# Players_load[2]["nom_joueur"] = "Franco"
-
-# Path("players.json").write_text(json.dumps(Players_load))
-
-# print(Players_load)
-
-
+# PLAYERS DATA
 def save_data_file_players(players: list):
     if not isinstance(players, list):
         print("Error, argument is not a players list ")
@@ -71,17 +21,16 @@ def save_data_file_players(players: list):
 def load_data_file_players():
     try:
         data = Path("data/players.json").read_text(encoding="utf-8")
-        players_dict = json.loads(data)
-        try:
-            # returna un dict
-            return players_dict
-        except:
-            print(Back.RED + "player load ERROR")
-    except:
-        print("error en load data file")
-        return
+        players_list = json.loads(data)
+        # Convertir cada diccionario en un objeto Joueur
+        joueurs = [Joueur.from_dict(player_data) for player_data in players_list]
+        return joueurs
+    except Exception as e:
+        print(f"Error en load_data_file_players: {e}")
+        return []
 
 
+# TOURNEMENT DATA
 def save_data_file_tournement(tournois: list):
     if not isinstance(tournois, list):
         print("Error , argument is not a tournois")

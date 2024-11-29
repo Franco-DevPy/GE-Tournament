@@ -1,14 +1,15 @@
-from colorama import Fore, Back, Style as init
+import colorama
+from colorama import Fore, Back, Style
 from questionary import select, Style as QuestionaryStyle
 from controllers.joueur_controller import *
+from controllers.tournoi_controller import *
 import time
 import os
 import platform
 from controllers.save_file import *
 
 
-init(autoreset=True)
-
+colorama.init(autoreset=True)
 custom_style = QuestionaryStyle(
     [
         ("qmark", "fg:#E91E63 bold"),  # Color del símbolo de pregunta
@@ -49,8 +50,8 @@ def start_app():
     ).ask()
 
     if respuesta == "Creér un Tournois":
-        print("Nouve Tournois Crée...")
-        time.sleep(2)
+        create_tournoi()
+        time.sleep(1)
         resetApp()
 
     if respuesta == "Gestion du Joueur":
@@ -106,13 +107,13 @@ def menu_joueur():
             print("Cargando lista...")
             time.sleep(1)
 
-            liste = get_liste_joueur()
+            liste_class_j = get_liste_joueur()
 
-            if not liste:
+            if not liste_class_j:
                 print(Back.RED + Fore.BLACK + "LISTE DES JOUEUR VIDE")
                 menu_back()
 
-            voir_liste_joueur(liste)
+            voir_liste_joueur(liste_class_j)
             respuesta2 = select(
                 message="Choisisez une option : ",
                 choices=select_sub_menu,
