@@ -33,6 +33,8 @@ def ajouter_joueur():
 
     reponse_liste = get_liste_joueur()
 
+    reponse_liste_dict = [joueur.to_dict() for joueur in reponse_liste]
+
     nom = input("Entrez le nom du joueur : ")
     prenom = input("Entrez le prenom du joueur : ")
     while True:
@@ -53,20 +55,59 @@ def ajouter_joueur():
             print(Fore.RED + "L'identifiant national est invalide")
 
     new_joueur = Joueur(nom, prenom, date_format, nombre_id)
+
     new_dict_joueur = new_joueur.to_dict()
 
-    reponse_liste.append(new_dict_joueur)
+    reponse_liste_dict.append(new_dict_joueur)
 
-    save_data_file_players(reponse_liste)
-    print(Back.GREEN + "  New Player Created :  ")
+    save_data_file_players(reponse_liste_dict)
+    print(Back.GREEN + "  Nouveau Joueur Crée :  ")
     print(new_joueur)
 
 
+# [joueur1, joueur2…]
+
+
+# Pour chercher un joueur par ID
+# for joueur in joueurs:
+#   if joueur.id_national = id:
+#       return joueur
 def get_liste_joueur():
     joueurs = load_data_file_players()
     joueurs.sort(key=lambda joueur: joueur.nom)
     return joueurs
 
+
+# { "id_1": joueur1, "id_2": joueur2… }
+
+
+# Pour chercher un joueur par ID
+# return joueurs[id]
+def get_all_players():
+    players = load_data_file_players()
+    players_dict = {}
+    for player in players:
+        players_dict[player.id_national] = player
+
+    return players_dict
+
+
+# tournement.json
+# [
+# {
+#   "name": "Mon super tournoi"
+#   "players": {"id": "AG1234", "points": 3}, {"id": "GR2234", "points": 3}]
+#   "rounds": [
+#       {
+#           matches: {
+#               player1: "AG1234"
+#               player2: "GR2234"
+#               winner: 1
+#           }
+#       }
+#   ]
+# }
+# ]
 
 # ACA PUEDO HACER UNA TYPO DE EL LA CLASSE O UN ENUM PARA QUE ASEGUREMOS Y DETECTE "la classe jugador"
 # def voir_liste_joueur(all_joueur):
@@ -96,31 +137,46 @@ def get_liste_joueur():
 #         )
 
 
+# QUE TIPO E RETOUR DEBEMOS PONER
 def voir_liste_joueur(all_joueur):
     print(Back.CYAN + Fore.BLACK + "LISTE DES JOUEURS :" + Style.RESET_ALL)
     for joueur in all_joueur:
         print(joueur, "\n")
 
 
-def select_joueur_tournoi():
+def select_joueur_tournoi() -> list[Joueur]:
 
     liste_select_joueur = get_liste_joueur()
 
     choices = []
-    ##ENTEDER ESTO
+    ## ESTO DEVUELVE UNA LISTA DE OBJETOS GRACIAS A VALUE Y NAME SOLO ES PARA VISUALIZAR LA CLG, PORUQE ?
     for joueur in liste_select_joueur:
         choices.append(
             {
                 "name": f"{joueur.nom} {joueur.prenom} ({joueur.id_national})",
-                "value": joueur,  # El diccionario completo del jugador
+                "value": joueur,
             }
         )
+    while True:
+        rpse_choix_joueur = checkbox(
+            "Selectioner Joueur pour le Tournois",
+            choices=choices,
+            style=custom_style,
+        ).ask()
 
-    ## MUY DIFICIL Y FRUSTRANTE ESTA PARTE NO ENTIENDO NADA LO QUE HACE Y LO HICE GPT
-    rpse_choix_joueur = checkbox(
-        "Selectioner Joueur pour le Tournois",
-        choices=choices,
-        style=custom_style,
-    ).ask()
+        if len(rpse_choix_joueur) % 2 != 0:
+            print(Back.RED + "La quantité de joueurs doit être paire.")
 
-    return rpse_choix_joueur
+        else:
+            return rpse_choix_joueur
+
+    # output = [e.value for e in rpse_choix_joueur]
+
+    # output = []
+    # for element in rpse_choix_joueur:
+    #     output.append(element.value)
+
+
+def select_paire_joueur():
+
+    liste_paire_joueur = []

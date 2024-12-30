@@ -1,7 +1,7 @@
 from models.tournoi import Tournoi
 from controllers.joueur_controller import select_joueur_tournoi
 from colorama import Fore, Back, Style, init
-import datetime
+from datetime import datetime as dt
 from questionary import select, Style as QuestionaryStyle
 
 # from save_file import save_data_file_tournement
@@ -28,23 +28,32 @@ custom_style = QuestionaryStyle(
 def create_tournoi():
     print(Back.BLUE + "-----Creation du Tournoi-----")
 
-    select_joueur_tournoi()
     # reponse_dernier_tournoi = get_dernier_tournois()
-    nom_tournoi = input("Entrez le nom du Tournoi : ")
-    lieu_tournoi = input("Entrez le lieu du Tournoi : ")
-    # date_debout = datetime()
-    # date_fin = datetime()
-    description_tournoi = input("Entrez une description du Tournoi")
+    nom_tournoi = input("Entrez le NOM du Tournoi : ")
+    lieu_tournoi = input("Entrez le LIEU du Tournoi : ")
+    date_debut = dt.now().strftime("%Y-%m-%d %H:%M")
+
+    description_tournoi = input("Entrez une description du Tournoi : ")
     nombre_tour_actuel = 0
     nombre_tour = 0
+    joueurs_selectionnes = select_joueur_tournoi()
 
-    Tournoi(
-        nom_tournoi,
-        lieu_tournoi,
-        description_tournoi,
+    new_Tournous = Tournoi(
+        nom_tournoi=nom_tournoi,
+        location=lieu_tournoi,
+        description=description_tournoi,
+        date_debut=date_debut,
+        liste_joueur=joueurs_selectionnes,
     )
 
-    print(Back.GREEN + "Le Tournois a été crée")
+    print(Back.GREEN + "--- Le Tournois a été crée avec succes ---")
+
+    new_Tournous.init_tours(joueurs_selectionnes)
+
+    print(new_Tournous)
 
 
-# problema, estoy avazando pero creo que hay cosas que me limitan y pido a chatgpt, este me da opciones y entre eso me da codigo de como deberia hacerlo, como puedo gestionar esto
+def start_tournois():
+
+    print("Le Tournois est commencé")
+    print()

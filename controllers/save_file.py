@@ -12,9 +12,8 @@ def save_data_file_players(players: list):
         return
     players.sort(key=lambda jugador: jugador["nom"])
     data = json.dumps(players)
-    print(data)
     Path("data/players.json").write_text(data)
-    print(Back.CYAN + "Les joueurs ont été sauvegardés avec succès")
+    print(Back.CYAN + Fore.BLACK + " - LES JOUEURS ONT ÉTÉ SAUVEGARDÉS AVEC SUCCÈS - ")
 
 
 # como probar funciones ? cuando hay varias en la app

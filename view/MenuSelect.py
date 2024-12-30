@@ -52,7 +52,7 @@ def start_app():
     if respuesta == "Creér un Tournois":
         create_tournoi()
         time.sleep(1)
-        resetApp()
+        menu_start()
 
     if respuesta == "Gestion du Joueur":
         print("Gestion du joueur....")
@@ -104,7 +104,7 @@ def menu_joueur():
 
     if respuesta == "Voir Liste de Joueur":
         try:
-            print("Cargando lista...")
+            print("Chargement de la liste des joueurs...")
             time.sleep(1)
 
             liste_class_j = get_liste_joueur()
@@ -124,7 +124,7 @@ def menu_joueur():
                 resetApp()
         # BaseExcept
         except Exception:
-            print("Error al cargar lista de jugadores...")
+            print("Erreur de chargement de la liste des joueurs...")
             time.sleep(5)
             respuesta2 = select(
                 message="Choisisez une option : ",
@@ -150,6 +150,22 @@ def menu_back():
         choices=select_sub_menu,
         style=custom_style,
     ).ask()
+
+    if response == "Revenir au Menu":
+        resetApp()
+
+
+def menu_start():
+    select_start = ["Commencer Tournois", "Revenir au Menu"]
+
+    response = select(
+        message="Choisisez une option : ",
+        choices=select_start,
+        style=custom_style,
+    )
+
+    if response == "Commencer Tournois":
+        start_tournois(),
 
     if response == "Revenir au Menu":
         resetApp()
