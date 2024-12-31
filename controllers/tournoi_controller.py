@@ -1,4 +1,5 @@
 from models.tournoi import Tournoi
+from controllers.save_file import save_data_file_tournement
 from controllers.joueur_controller import select_joueur_tournoi
 from colorama import Fore, Back, Style, init
 from datetime import datetime as dt
@@ -38,7 +39,7 @@ def create_tournoi():
     nombre_tour = 0
     joueurs_selectionnes = select_joueur_tournoi()
 
-    new_Tournous = Tournoi(
+    new_tournois = Tournoi(
         nom_tournoi=nom_tournoi,
         location=lieu_tournoi,
         description=description_tournoi,
@@ -48,12 +49,10 @@ def create_tournoi():
 
     print(Back.GREEN + "--- Le Tournois a été crée avec succes ---")
 
-    new_Tournous.init_tours(joueurs_selectionnes)
+    liste_match = new_tournois.init_tours(joueurs_selectionnes)
 
-    print(new_Tournous)
+    save_tournois = new_tournois.to_dict()
 
+    save_data_file_tournement(save_tournois)
 
-def start_tournois():
-
-    print("Le Tournois est commencé")
-    print()
+    return liste_match

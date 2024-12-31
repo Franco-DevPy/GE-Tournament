@@ -1,4 +1,6 @@
 from colorama import Fore, Back, Style
+from models.joueur import Joueur
+from questionary import select, checkbox
 
 
 class Match:
@@ -29,3 +31,12 @@ class Match:
 
     def perdre_match(self):
         pass
+
+    def to_dict(self):
+        return {
+            "nombre_match": self.nombre_match,
+            "joueur1": self.joueur1.to_dict(),
+            "joueur2": self.joueur2.to_dict(),
+            "score_jouer1": self.score_jouer1,
+            "score_jouer2": self.score_jouer2,
+        }

@@ -3,6 +3,7 @@ from colorama import Fore, Back, Style
 from questionary import select, Style as QuestionaryStyle
 from controllers.joueur_controller import *
 from controllers.tournoi_controller import *
+from controllers.match_controller import *
 import time
 import os
 import platform
@@ -50,9 +51,8 @@ def start_app():
     ).ask()
 
     if respuesta == "Creér un Tournois":
-        create_tournoi()
-        time.sleep(1)
-        menu_start()
+        liste_match = create_tournoi()
+        menu_start_tournois(liste_match)
 
     if respuesta == "Gestion du Joueur":
         print("Gestion du joueur....")
@@ -155,17 +155,18 @@ def menu_back():
         resetApp()
 
 
-def menu_start():
+def menu_start_tournois(matchs):
+
     select_start = ["Commencer Tournois", "Revenir au Menu"]
 
     response = select(
         message="Choisisez une option : ",
         choices=select_start,
         style=custom_style,
-    )
+    ).ask()
 
     if response == "Commencer Tournois":
-        start_tournois(),
+        start_match(matchs)
 
     if response == "Revenir au Menu":
         resetApp()

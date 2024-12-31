@@ -3,12 +3,13 @@ from pathlib import Path
 import os
 from colorama import Fore, Back
 from models.joueur import Joueur
+from models.tournoi import Tournoi
 
 
 # PLAYERS DATA
 def save_data_file_players(players: list):
     if not isinstance(players, list):
-        print("Error, argument is not a players list ")
+        print(Back.RED + " Error, argument is not a players list  ")
         return
     players.sort(key=lambda jugador: jugador["nom"])
     data = json.dumps(players)
@@ -30,9 +31,9 @@ def load_data_file_players():
 
 
 # TOURNEMENT DATA
-def save_data_file_tournement(tournois: list):
-    if not isinstance(tournois, list):
-        print("Error , argument is not a tournois")
+def save_data_file_tournement(tournois):
+    if not isinstance(tournois, dict):
+        print(Back.RED + " Error , argument is not a tournois ")
         return
 
     data = json.dumps(tournois)
@@ -40,11 +41,18 @@ def save_data_file_tournement(tournois: list):
     print(Back.GREEN + "Le Tournoi a été sauvegardé avec succès")
 
 
-def load_data_file_tournement():
-    data = Path("data/tournament.json").read_text(encoding="utf-8")
-    tournament_list = json.load(data)
-    print(Back.GREEN + "DERNIER TOURNOI")
-    print(tournament_list)
+def load_data_file_tournament():
+    try:
+        data = Path("data/tournament.json").read_text(encoding="utf-8")
+        tournament_list = json.load(data)
+        # Convertir cada diccionario en un objeto Joueur
+        joueurs = [Tournoi.from_dict(player_data) for player_data in tournament_list]
+        print("jugadores load ", joueurs)
+
+        return joueurs
+    except Exception as e:
+        print(f"Error en load_data_file_players: {e}")
+        return []
 
 
 # print("data antes de json : ",save_json)
