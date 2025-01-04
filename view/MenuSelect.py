@@ -8,6 +8,8 @@ import time
 import os
 import platform
 from controllers.save_file import *
+from models.match import *
+from models.tour import *
 
 
 colorama.init(autoreset=True)
@@ -51,8 +53,9 @@ def start_app():
     ).ask()
 
     if respuesta == "Creér un Tournois":
-        liste_match = create_tournoi()
-        menu_start_tournois(liste_match)
+        # objeto tour
+        premier_tour = create_tournoi()
+        menu_start_tournois(premier_tour.liste_match)
 
     if respuesta == "Gestion du Joueur":
         print("Gestion du joueur....")
@@ -155,7 +158,7 @@ def menu_back():
         resetApp()
 
 
-def menu_start_tournois(matchs):
+def menu_start_tournois(premier_tour):
 
     select_start = ["Commencer Tournois", "Revenir au Menu"]
 
@@ -166,7 +169,7 @@ def menu_start_tournois(matchs):
     ).ask()
 
     if response == "Commencer Tournois":
-        start_match(matchs)
+        start_match(premier_tour)
 
     if response == "Revenir au Menu":
         resetApp()

@@ -1,6 +1,7 @@
 from colorama import Fore, Back, Style
 from models.joueur import Joueur
 from questionary import select, checkbox
+import random
 
 
 class Match:
@@ -31,6 +32,11 @@ class Match:
 
     def perdre_match(self):
         pass
+
+    def voir_histoiral_match(self):
+        print(Back.CYAN + Fore.BLACK + "HISTORIAL DES MATCHS :" + Style.RESET_ALL)
+        for match in self.historial_match:
+            print(Back.BLUE + match, "\n")
 
     def to_dict(self):
         return {

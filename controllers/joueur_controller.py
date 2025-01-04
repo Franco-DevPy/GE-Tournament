@@ -165,7 +165,7 @@ def select_joueur_tournoi() -> list[Joueur]:
         ).ask()
 
         if len(rpse_choix_joueur) % 2 != 0:
-            print(Back.RED + "La quantité de joueurs doit être paire.")
+            print(Back.RED + " -- ⚠ LA QUANTITÉ DE JOUEURS DOIT ÊTRE PAIRE. ⚠ -- ")
 
         else:
             return rpse_choix_joueur

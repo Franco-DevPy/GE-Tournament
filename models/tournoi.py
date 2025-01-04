@@ -44,46 +44,63 @@ class Tournoi:
     #     raise NotImplementedError
     #     return []
 
-    def init_tours(self, liste_joueur: list) -> list:
+    # def init_tours(self, liste_joueur: list) -> list:
 
-        joueurs_copy = liste_joueur[:]
-        random.shuffle(joueurs_copy)
-        print("Tour Generé : ", "\n")
+    #     joueurs_copy = liste_joueur[:]
+    #     random.shuffle(joueurs_copy)
+    #     print("Tour Generé : ", "\n")
 
-        liste_paire = []
-        nombre_match = 0
-        liste_match = []
+    #     liste_paire = []
+    #     nombre_match = 0
+    #     liste_match = []
 
-        while len(joueurs_copy) >= 2:
-            joueur1 = joueurs_copy.pop(0)
-            joueur2 = joueurs_copy.pop(0)
-            nombre_match += 1
+    #     while len(joueurs_copy) >= 2:
+    #         joueur1 = joueurs_copy.pop(0)
+    #         joueur2 = joueurs_copy.pop(0)
+    #         nombre_match += 1
 
-            new_match = Match(
-                nombre_match=nombre_match,
-                joueur1=joueur1,
-                joueur2=joueur2,
-                score_jouer1=0,
-                score_jouer2=0,
-            )
+    #         new_match = Match(
+    #             nombre_match=nombre_match,
+    #             joueur1=joueur1,
+    #             joueur2=joueur2,
+    #             score_jouer1=0,
+    #             score_jouer2=0,
+    #         )
 
-            print(
-                f"{Back.BLUE + Fore.BLACK}♜  {joueur1.nom + 'ID :' + joueur1.id_national} ♜  {Style.RESET_ALL}  VS  {Back.BLUE + Fore.BLACK}♜  {joueur2.nom + 'ID :' + joueur2.id_national} ♜ {Style.RESET_ALL} \n "
-            )
+    #         print(
+    #             f"{Back.BLUE + Fore.BLACK}♜  {joueur1.nom + ' - ID :' + joueur1.id_national} ♜  {Style.RESET_ALL}  VS  {Back.BLUE + Fore.BLACK}♜  {joueur2.nom + ' - ID :' + joueur2.id_national} ♜ {Style.RESET_ALL} \n "
+    #         )
 
-            paire_joueur = [joueur1, joueur2]
-            liste_paire.append(paire_joueur)
-            liste_match.append(new_match)
+    #         paire_joueur = [joueur1, joueur2]
+    #         liste_paire.append(paire_joueur)
+    #         liste_match.append(new_match)
 
-        self.nombre_tour = len(liste_paire)
-        self.liste_joueur = liste_joueur
-        self.liste_match = liste_match
+    #         joueur1.save_joueur_match(joueur2.id_national)
+    #         joueur2.save_joueur_match(joueur1.id_national)
 
-        # for match in list_match:
-        #     print("Liste de match creados :", match)
+    #     self.nombre_tour = len(liste_paire)
+    #     self.liste_joueur = liste_joueur
+    #     self.liste_match = liste_match
 
-        # print("liste paire", liste_paire)
-        return liste_match
+    #     # for match in list_match:
+    #     #     print("Liste de match creados :", match)
+
+    #     # print("liste paire", liste_paire)
+    #     return liste_match
+
+    # def save_historial_match(self, match):
+    #     self.historial_match.append(match)
+
+    # def load_historial_match(self, match):
+
+    def set_matches(self, nouveaux_matches):
+        print("Nouveaux matches : ", nouveaux_matches)
+        self.matches = nouveaux_matches
+
+    def voir_histoiral_match(self):
+        print(Back.CYAN + Fore.BLACK + "HISTORIAL DES MATCHS :" + Style.RESET_ALL)
+        for match in self.historial_match:
+            print(Back.BLUE + match, "\n")
 
     def to_dict(self):
         return {

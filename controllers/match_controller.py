@@ -12,9 +12,13 @@ def start_match(matchs: list):
 
     print("Match started...")
 
+    print(matchs)
+
     while len(matchs) > 0:
 
         match_play = matchs.pop(0)
+
+        print("match play :", match_play)
         select_gaganant = [
             f"{match_play.joueur1.nom}",
             f"{match_play.joueur2.nom}",
@@ -27,15 +31,21 @@ def start_match(matchs: list):
         ).ask()
 
         if response == match_play.joueur1.nom:
-            print(f"{Back.BLUE} Le joueur {match_play.joueur1.nom} a gagné le match ")
+            # match_play.joueur1.score_jouer1 += 1
+            # PORUIQE NO RECONOCE  LOS ATRIBUTOS DE LA CLASE JUGADOR
+            # print(f"Score actuel : {match_play.joueur1.score_jouer1}")
+            match_play.joueur1.gagner_match()
+        # PORQUE NO SUGIERE LOS METDOS DE LA CLASE JUGADOR
         if response == match_play.joueur2.nom:
-            print(f"Le joueur {match_play.joueur2.nom} a gagné le match")
+            match_play.joueur2.gagner_match()
         if (
             response
             == f"Egalité : {match_play.joueur1.nom} et {match_play.joueur2.nom}"
         ):
-            print(f"Le match est nul")
+
+            match_play.joueur1.egalite_match()
+            match_play.joueur2.egalite_match()
         print(Back.GREEN + " --- Match suivant... --- ")
 
-    print("Tous les matchs ont été joués")
+    print(Back.CYAN + "--- Tous les matchs ont été joués --- ")
     return

@@ -4,6 +4,7 @@ from controllers.joueur_controller import select_joueur_tournoi
 from colorama import Fore, Back, Style, init
 from datetime import datetime as dt
 from questionary import select, Style as QuestionaryStyle
+from models.tour import Tour
 
 # from save_file import save_data_file_tournement
 
@@ -49,10 +50,10 @@ def create_tournoi():
 
     print(Back.GREEN + "--- Le Tournois a été crée avec succes ---")
 
-    liste_match = new_tournois.init_tours(joueurs_selectionnes)
+    premier_tour = Tour(new_tournois, 1)
 
     save_tournois = new_tournois.to_dict()
 
     save_data_file_tournement(save_tournois)
 
-    return liste_match
+    return premier_tour
