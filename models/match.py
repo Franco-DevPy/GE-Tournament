@@ -21,6 +21,18 @@ class Match:
             f"{Back.CYAN + Fore.BLACK}♜  {self.joueur1.nom + 'ID :' + self.joueur1.id_national} ♜  {Style.RESET_ALL}  VS  {Back.CYAN + Fore.BLACK}♜  {self.joueur2.nom + 'ID :' + self.joueur2.id_national} ♜ {Style.RESET_ALL} \n "
         )
 
+    def definir_resultat(self, resultat):
+        """Definir le résultat du match"""
+        if resultat == "joueur1":
+            self.joueur1.gagner_match()
+            self.joueur2.perdre_match()
+        elif resultat == "joueur2":
+            self.joueur2.gagner_match()
+            self.joueur1.perdre_match()
+        else:  # Egalité
+            self.joueur1.egalite_match()
+            self.joueur2.egalite_match()
+
     def create_match(self):
         print(f"Le Joueur {self.joueur1} VS {self.joueur2}")
 

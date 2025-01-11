@@ -54,8 +54,19 @@ def start_app():
 
     if respuesta == "Creér un Tournois":
         # objeto tour
-        premier_tour = create_tournoi()
-        menu_start_tournois(premier_tour.liste_match)
+        new_tournoi = create_tournoi()
+
+        premier_tour = new_tournoi.liste_tour[0]
+        print("new tournois ANTES primer tour : ", vars(new_tournoi))
+        print("liste all match : ", premier_tour)
+
+        menu_start_tournois(premier_tour)  # llama a start_match
+
+        print("new tournois dsp primer tour : ", vars(new_tournoi))
+
+        menu_match_suivant(
+            new_tournoi,
+        )
 
     if respuesta == "Gestion du Joueur":
         print("Gestion du joueur....")
@@ -158,7 +169,7 @@ def menu_back():
         resetApp()
 
 
-def menu_start_tournois(premier_tour):
+def menu_start_tournois(premier_tour: Tour):
 
     select_start = ["Commencer Tournois", "Revenir au Menu"]
 
@@ -170,6 +181,25 @@ def menu_start_tournois(premier_tour):
 
     if response == "Commencer Tournois":
         start_match(premier_tour)
+
+    if response == "Revenir au Menu":
+        resetApp()
+
+
+def menu_match_suivant(tournoi):
+
+    select_start = ["Match Suivant", "Revenir au Menu"]
+
+    response = select(
+        message="Choisisez une option : ",
+        choices=select_start,
+        style=custom_style,
+    ).ask()
+
+    if response == "Match Suivant":
+        print("Match Suivant...")
+        print("tournoi : ", vars(tournoi))
+        Tour(tournoi)
 
     if response == "Revenir au Menu":
         resetApp()
