@@ -33,6 +33,9 @@ class Match:
             self.joueur1.egalite_match()
             self.joueur2.egalite_match()
 
+    def match_suivant(self):
+        self.nombre_match += 1
+
     def create_match(self):
         print(f"Le Joueur {self.joueur1} VS {self.joueur2}")
 

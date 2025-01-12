@@ -57,12 +57,10 @@ def start_app():
         new_tournoi = create_tournoi()
 
         premier_tour = new_tournoi.liste_tour[0]
-        print("new tournois ANTES primer tour : ", vars(new_tournoi))
-        print("liste all match : ", premier_tour)
 
         menu_start_tournois(premier_tour)  # llama a start_match
 
-        print("new tournois dsp primer tour : ", vars(new_tournoi))
+        print(Back.CYAN + "new tournois dsp primer tour : ", vars(new_tournoi))
 
         menu_match_suivant(
             new_tournoi,

@@ -52,7 +52,6 @@ def create_tournoi() -> Tournoi:
 
     new_tournoi.generate_tour()
 
-    print(Back.BLUE + "--- La generation de tour a été finalisé ---")
     save_tournois = new_tournoi.to_dict()
 
     save_data_file_tournement(save_tournois)

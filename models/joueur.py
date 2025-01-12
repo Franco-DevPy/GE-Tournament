@@ -40,12 +40,14 @@ class Joueur:
     def gagner_match(self):
         self.match_gagne += 1
         self.match_total += 1
-        print(f"{Back.GREEN} Le joueur {self.nom} a gagné le match{Style.RESET_ALL}")
+        print(
+            f"{Back.GREEN}-- Le joueur {self.nom} a gagné le match --{Style.RESET_ALL}"
+        )
 
     def egalite_match(self):
         self.match_gagne += 1
         self.match_total += 1
-        print(f"{Back.GREEN} Le match est nul{Style.RESET_ALL}")
+        print(f"{Back.BLUE}-- Le match est nul -- {Style.RESET_ALL}")
 
     def save_joueur_match(self, joueur_id):
         self.matches_joues.append(joueur_id)
@@ -58,7 +60,9 @@ class Joueur:
     def perdre_match(self):
         self.match_perdu += 1
         self.match_total += 1
-        print(f"{Back.GREEN} Le joueur {self.nom} a perdu le match{Style.RESET_ALL}")
+        print(
+            f"{Back.BLUE}--  Le joueur {self.nom} a perdu le match -- {Style.RESET_ALL}"
+        )
 
     def to_dict(self):
         return {
