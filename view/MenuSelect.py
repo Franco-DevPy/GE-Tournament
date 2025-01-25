@@ -60,11 +60,12 @@ def start_app():
 
         menu_start_tournois(premier_tour)  # llama a start_match
 
-        print(Back.CYAN + "new tournois dsp primer tour : ", vars(new_tournoi))
+    while new_tournoi.nombre_tour_actuel < new_tournoi.nombre_tour:
 
-        menu_match_suivant(
-            new_tournoi,
-        )
+        ## ACA ESTAMOS EN TOUR 2 O MAS
+        new_tournoi.generate_tour()
+        tours_suivante = new_tournoi.liste_tour[-1]
+        menu_match_suivant(tours_suivante)
 
     if respuesta == "Gestion du Joueur":
         print("Gestion du joueur....")
@@ -184,7 +185,7 @@ def menu_start_tournois(premier_tour: Tour):
         resetApp()
 
 
-def menu_match_suivant(tournoi):
+def menu_match_suivant(tour_suivant: Tour):
 
     select_start = ["Match Suivant", "Revenir au Menu"]
 
@@ -195,9 +196,7 @@ def menu_match_suivant(tournoi):
     ).ask()
 
     if response == "Match Suivant":
-        print("Match Suivant...")
-        print("tournoi : ", vars(tournoi))
-        Tour(tournoi)
+        start_match(tour_suivant)
 
     if response == "Revenir au Menu":
         resetApp()

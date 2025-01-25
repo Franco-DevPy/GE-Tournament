@@ -17,7 +17,8 @@ class Tournoi:
         date_fin=None,
         description="",
         nombre_tour_actuel=1,
-        nombre_tour=0,
+        # numero minimo de tour
+        nombre_tour=4,
         liste_joueur=[],
         liste_tour=[],
     ) -> None:
@@ -63,29 +64,25 @@ class Tournoi:
         }
 
     def generate_tour(self):
+
+        ## ACA DEBEMOS GENERAR TOUR Y NUMERO DE TOUR, DEFINIRLOS, PARA QUE EL WHILE FUNCIONE nombre_tour_actuel < new_tournoi.nombre_tour:
+
         print(
             Fore.GREEN
             + f" -- Création du Tour {self.nombre_tour_actuel} pour le tournoi {self.nom_tournoi} --"
         )
 
         nouveau_tour = Tour(
-            joueurs_selectionnes=self.liste_joueur,
             nom_tour=self.nombre_tour_actuel,
             tournoi=self,
         )
 
         self.liste_tour.append(nouveau_tour)
         self.nombre_tour_actuel += 1
-
-    def get_first_tour(self, numero_tour):
-        if numero_tour == 1:
-            return self.liste_tour[numero_tour - 1]
-        else:
-            print("Tour non trouvé")
-            return None
+        nouveau_tour.nom_tour += 1
 
     def get_all_tours(self):
-        """Recuperar todos los tours"""
+        """Recuper tous les tours"""
         return self.liste_tour
 
     @classmethod

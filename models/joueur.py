@@ -15,7 +15,7 @@ class Joueur:
         match_gagne=0,
         match_perdu=0,
         match_total=0,
-        matches_joues=[],
+        joueurs_rencontres=None,
     ) -> None:
         self.nom = nom
         self.prenom = prenom
@@ -24,6 +24,7 @@ class Joueur:
         self.match_gagne = match_gagne
         self.match_perdu = match_perdu
         self.match_total = match_total
+        self.jouers_rencontres = joueurs_rencontres or {}
 
     def __str__(self):
         return (
