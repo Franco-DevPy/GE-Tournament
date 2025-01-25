@@ -69,7 +69,7 @@ class Tournoi:
 
         print(
             Fore.GREEN
-            + f" -- Création du Tour {self.nombre_tour_actuel} pour le tournoi {self.nom_tournoi} --"
+            + f" -- Création du Tour #{self.nombre_tour_actuel} pour le tournoi {self.nom_tournoi} --"
         )
 
         nouveau_tour = Tour(
@@ -79,7 +79,7 @@ class Tournoi:
 
         self.liste_tour.append(nouveau_tour)
         self.nombre_tour_actuel += 1
-        nouveau_tour.nom_tour += 1
+        nouveau_tour.number_tour += 1
 
     def get_all_tours(self):
         """Recuper tous les tours"""

@@ -10,7 +10,7 @@ from models.match import Match
 class Tour:
 
     def __init__(self, nom_tour, tournoi=None):
-        self.nom_tour = nom_tour
+        self.number_tour = nom_tour
         self.liste_joueur = tournoi.liste_joueur
         self.liste_match = []
         self.tournoi = tournoi
@@ -20,11 +20,14 @@ class Tour:
             self.generate_matches()
 
     def generate_matches_first_tour(self) -> list:
-        print(Back.BLUE + " -- Génération du TOUR Nro 1   --")
+        print(
+            Back.BLUE
+            + " -- Génération du TOUR Nro 1 (generate_matches_first_tour)   --\n"
+        )
         # print("jugadores seleccionados : ", joueurs_selectionnes)
         random.shuffle(self.liste_joueur)
         new_liste_match = []
-        self.nom_tour += 1
+        self.number_tour += 1
         nombre_match = 1
 
         nouveau_tour = self
@@ -47,8 +50,8 @@ class Tour:
             if joueur1.id_national not in joueur2.jouers_rencontres:
                 joueur2.jouers_rencontres[joueur1.id_national] = []
 
-            joueur1.jouers_rencontres[joueur2.id_national].append(self.nom_tour)
-            joueur2.jouers_rencontres[joueur1.id_national].append(self.nom_tour)
+            joueur1.jouers_rencontres[joueur2.id_national].append(self.number_tour)
+            joueur2.jouers_rencontres[joueur1.id_national].append(self.number_tour)
 
             new_liste_match.append(new_match)
             print(
@@ -61,7 +64,8 @@ class Tour:
 
     def generate_matches(self) -> list:
         print(
-            Back.BLUE + f" -- Génération du Tour (generate_matches) {self.nom_tour} --"
+            Back.BLUE
+            + f" -- Génération du Tour (generate_matches) {self.number_tour} --"
         )
         new_liste_match = []
         nombre_match = 1
@@ -90,7 +94,7 @@ class Tour:
 
     def to_dict(self):
         return {
-            "nom_tour": self.nom_tour,
+            "nom_tour": self.number_tour,
             "liste_joueur": [joueur.to_dict() for joueur in self.liste_joueur],
             "liste_match": [match.to_dict() for match in self.liste_match],
         }

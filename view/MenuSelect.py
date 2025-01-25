@@ -53,7 +53,6 @@ def start_app():
     ).ask()
 
     if respuesta == "Creér un Tournois":
-        # objeto tour
         new_tournoi = create_tournoi()
 
         premier_tour = new_tournoi.liste_tour[0]
@@ -66,6 +65,20 @@ def start_app():
         new_tournoi.generate_tour()
         tours_suivante = new_tournoi.liste_tour[-1]
         menu_match_suivant(tours_suivante)
+
+    print(
+        Back.BLUE
+        + """
+  ___ ___ _  _   ___  _   _   _____ ___  _   _ ___ _  _  ___ ___ 
+ | __|_ _| \| | |   \| | | | |_   _/ _ \| | | | _ \ \| |/ _ \_ _|
+ | _| | || .` | | |) | |_| |   | || (_) | |_| |   / .` | (_) | | 
+ |_| |___|_|\_| |___/ \___/    |_| \___/ \___/|_|_\_|\_|\___/___|
+          """
+        + Style.RESET_ALL
+        + "\n"
+    )
+
+    menu_fin_tournois()
 
     if respuesta == "Gestion du Joueur":
         print("Gestion du joueur....")
@@ -163,6 +176,26 @@ def menu_back():
         choices=select_sub_menu,
         style=custom_style,
     ).ask()
+
+    if response == "Revenir au Menu":
+        resetApp()
+
+
+def menu_fin_tournois():
+    select_sub_menu = [
+        "Voir le classement",
+        "Revenir au Menu",
+    ]
+
+    response = select(
+        message="Choisisez une option : ",
+        choices=select_sub_menu,
+        style=custom_style,
+    ).ask()
+
+    if response == "Voir le classement":
+        print("Voir le classement....")
+        menu_back()
 
     if response == "Revenir au Menu":
         resetApp()
