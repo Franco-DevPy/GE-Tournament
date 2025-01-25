@@ -59,26 +59,25 @@ def start_app():
 
         menu_start_tournois(premier_tour)  # llama a start_match
 
-    while new_tournoi.nombre_tour_actuel < new_tournoi.nombre_tour:
+        while new_tournoi.nombre_tour_actuel < new_tournoi.nombre_tour:
 
-        ## ACA ESTAMOS EN TOUR 2 O MAS
-        new_tournoi.generate_tour()
-        tours_suivante = new_tournoi.liste_tour[-1]
-        menu_match_suivant(tours_suivante)
+            ## ACA ESTAMOS EN TOUR 2 O MAS
+            new_tournoi.generate_tour()
+            tours_suivante = new_tournoi.liste_tour[-1]
+            menu_match_suivant(tours_suivante)
 
-    print(
-        Back.BLUE
-        + """
-  ___ ___ _  _   ___  _   _   _____ ___  _   _ ___ _  _  ___ ___ 
- | __|_ _| \| | |   \| | | | |_   _/ _ \| | | | _ \ \| |/ _ \_ _|
- | _| | || .` | | |) | |_| |   | || (_) | |_| |   / .` | (_) | | 
- |_| |___|_|\_| |___/ \___/    |_| \___/ \___/|_|_\_|\_|\___/___|
-          """
-        + Style.RESET_ALL
-        + "\n"
-    )
-
-    menu_fin_tournois()
+        print(
+            Back.BLUE
+            + """
+        ___ ___ _  _   ___  _   _   _____ ___  _   _ ___ _  _  ___ ___ 
+        | __|_ _| \| | |   \| | | | |_   _/ _ \| | | | _ \ \| |/ _ \_ _|
+        | _| | || .` | | |) | |_| |   | || (_) | |_| |   / .` | (_) | | 
+        |_| |___|_|\_| |___/ \___/    |_| \___/ \___/|_|_\_|\_|\___/___|
+                """
+            + Style.RESET_ALL
+            + "\n"
+        )
+        menu_fin_tournois()
 
     if respuesta == "Gestion du Joueur":
         print("Gestion du joueur....")
