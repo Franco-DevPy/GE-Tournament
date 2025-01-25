@@ -37,7 +37,7 @@ def start_match(tour_a_jouer: Tour):
             match_a_jouer.definir_resultat("egalite")
 
         match_a_jouer.match_suivant()
-        print(Back.GREEN + " --- Match suivant... --- ")
+        print(Back.GREEN + " --- Match suivant... --- " + Style.RESET_ALL + "\n")
 
     print(
         Back.CYAN

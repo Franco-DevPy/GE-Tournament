@@ -29,6 +29,7 @@ custom_style = QuestionaryStyle(
 
 def create_tournoi() -> Tournoi:
     print(Back.BLUE + "-----Creation du Tournoi-----")
+    liste_tournois = []
 
     # reponse_dernier_tournoi = get_dernier_tournois()
     nom_tournoi = input("Entrez le NOM du Tournoi : ")
@@ -36,8 +37,6 @@ def create_tournoi() -> Tournoi:
     date_debut = dt.now().strftime("%Y-%m-%d %H:%M")
 
     description_tournoi = input("Entrez une description du Tournoi : ")
-    nombre_tour_actuel = 0
-    nombre_tour = 0
     joueurs_selectionnes = select_joueur_tournoi()
 
     new_tournoi = Tournoi(
@@ -53,6 +52,8 @@ def create_tournoi() -> Tournoi:
     new_tournoi.generate_tour()
 
     save_tournois = new_tournoi.to_dict()
+
+    liste_tournois.append(save_tournois)
 
     save_data_file_tournement(save_tournois)
 

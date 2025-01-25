@@ -64,7 +64,12 @@ def start_app():
             ## ACA ESTAMOS EN TOUR 2 O MAS
             new_tournoi.generate_tour()
             tours_suivante = new_tournoi.liste_tour[-1]
-            menu_match_suivant(tours_suivante)
+            menu_match_suivant()
+            start_match(tours_suivante)
+            print("por cada match pasa ? ")
+            save_tournois = new_tournoi.to_dict()
+            save_data_file_tournement(save_tournois)
+            menu_tour_suivant()
 
         print(
             Back.BLUE
@@ -84,6 +89,7 @@ def start_app():
         menu_joueur()
 
     if respuesta == "Charger Dernier Tournois":
+        menu_charger_tournois()
         print("Dernier tournois....")
 
     if respuesta == "Exit":
@@ -217,9 +223,35 @@ def menu_start_tournois(premier_tour: Tour):
         resetApp()
 
 
-def menu_match_suivant(tour_suivant: Tour):
+def menu_charger_tournois():
+    select_tournois = [
+        "Charger Tournois",
+        "Voir Tournois",
+        "Revenir au Menu",
+    ]
 
-    select_start = ["Match Suivant", "Revenir au Menu"]
+    response = select(
+        message="Choisisez une option : ",
+        choices=select_tournois,
+        style=custom_style,
+    ).ask()
+
+    if response == "Charger Tournois":
+        print("Charger Tournois....")
+        resetApp()
+
+    if response == "Voir Tournois":
+        print("Voir Tournois....")
+
+        resetApp()
+
+    if response == "Revenir au Menu":
+        resetApp()
+
+
+def menu_tour_suivant():
+
+    select_start = ["Tour Suivante", "Revenir au Menu"]
 
     response = select(
         message="Choisisez une option : ",
@@ -227,8 +259,26 @@ def menu_match_suivant(tour_suivant: Tour):
         style=custom_style,
     ).ask()
 
-    if response == "Match Suivant":
-        start_match(tour_suivant)
+    if response == "Tour Suivante":
+        pass
+
+    if response == "Revenir au Menu":
+        resetApp()
+
+
+def menu_match_suivant():
+
+    print("Match suivant....")
+    select_start = ["Jouer Tour", "Revenir au Menu"]
+
+    response = select(
+        message="Choisisez une option : ",
+        choices=select_start,
+        style=custom_style,
+    ).ask()
+
+    if response == "Jouer Tour":
+        pass
 
     if response == "Revenir au Menu":
         resetApp()

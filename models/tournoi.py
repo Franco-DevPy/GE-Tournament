@@ -73,13 +73,13 @@ class Tournoi:
         )
 
         nouveau_tour = Tour(
-            nom_tour=self.nombre_tour_actuel,
+            number_tour=self.nombre_tour_actuel,
             tournoi=self,
         )
 
         self.liste_tour.append(nouveau_tour)
         self.nombre_tour_actuel += 1
-        nouveau_tour.number_tour += 1
+        print("numero de tour : ", nouveau_tour.number_tour)
 
     def get_all_tours(self):
         """Recuper tous les tours"""

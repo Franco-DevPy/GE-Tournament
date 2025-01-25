@@ -9,12 +9,12 @@ from models.match import Match
 
 class Tour:
 
-    def __init__(self, nom_tour, tournoi=None):
-        self.number_tour = nom_tour
+    def __init__(self, number_tour, tournoi=None):
+        self.number_tour = number_tour
         self.liste_joueur = tournoi.liste_joueur
         self.liste_match = []
         self.tournoi = tournoi
-        if nom_tour == 1:
+        if number_tour == 1:
             self.generate_matches_first_tour()
         else:
             self.generate_matches()
@@ -22,12 +22,11 @@ class Tour:
     def generate_matches_first_tour(self) -> list:
         print(
             Back.BLUE
-            + " -- Génération du TOUR Nro 1 (generate_matches_first_tour)   --\n"
+            + f" -- Génération du TOUR Nro {self.number_tour} (generate_matches_first_tour)   --\n"
         )
         # print("jugadores seleccionados : ", joueurs_selectionnes)
         random.shuffle(self.liste_joueur)
         new_liste_match = []
-        self.number_tour += 1
         nombre_match = 1
 
         nouveau_tour = self
