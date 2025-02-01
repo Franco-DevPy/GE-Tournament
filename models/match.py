@@ -17,7 +17,7 @@ class Match:
 
     def __str__(self):
         return (
-            f" Match Nro : {self.nombre_match} \n "
+            # f" Match Nro : {self.nombre_match} \n "
             f"{Back.CYAN + Fore.BLACK}♜  {self.joueur1.nom + 'ID :' + self.joueur1.id_national} ♜  {Style.RESET_ALL}  VS  {Back.CYAN + Fore.BLACK}♜  {self.joueur2.nom + 'ID :' + self.joueur2.id_national} ♜ {Style.RESET_ALL} \n "
         )
 

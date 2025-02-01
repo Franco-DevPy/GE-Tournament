@@ -41,22 +41,22 @@ class Joueur:
     def gagner_match(self):
         self.match_gagne += 1
         self.match_total += 1
-        print(
-            f"{Back.GREEN}-- Le joueur {self.nom} a gagné le match --{Style.RESET_ALL}"
-        )
+        # print(
+        #     f"{Back.GREEN}-- Le joueur {self.nom} a gagné le match --{Style.RESET_ALL}"
+        # )
 
     def egalite_match(self):
         self.match_gagne += 1
         self.match_total += 1
-        print(f"{Back.BLUE}-- Le match est nul -- {Style.RESET_ALL}")
+        # print(f"{Back.BLUE}-- Le match est nul -- {Style.RESET_ALL}")
 
     def save_joueur_match(self, joueur_id):
         self.matches_joues.append(joueur_id)
-        print(f"{Back.GREEN} Le match a été sauvegardé{Style.RESET_ALL}")
+        # print(f"{Back.GREEN} Le match a été sauvegardé{Style.RESET_ALL}")
 
     def reset_joueur_match(self):
         self.matches_joues = []
-        print(f"{Back.GREEN} Les matchs ont été réinitialisés{Style.RESET_ALL}")
+        # print(f"{Back.GREEN} Les matchs ont été réinitialisés{Style.RESET_ALL}")
 
     def perdre_match(self):
         self.match_perdu += 1

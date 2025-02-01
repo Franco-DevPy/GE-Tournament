@@ -59,17 +59,21 @@ def start_app():
 
         menu_start_tournois(premier_tour)  # llama a start_match
 
-        while new_tournoi.nombre_tour_actuel < new_tournoi.nombre_tour:
-
-            ## ACA ESTAMOS EN TOUR 2 O MAS
-            new_tournoi.generate_tour()
+        while new_tournoi.nombre_tour_actuel <= new_tournoi.nombre_tour:
+            print("--------------nombre tour", new_tournoi.nombre_tour)
+            print(
+                "-----------------------nombre tour actuel",
+                new_tournoi.nombre_tour_actuel,
+            )
             tours_suivante = new_tournoi.liste_tour[-1]
             menu_match_suivant()
             start_match(tours_suivante)
-            print("por cada match pasa ? ")
             save_tournois = new_tournoi.to_dict()
             save_data_file_tournement(save_tournois)
             menu_tour_suivant()
+
+            if new_tournoi.nombre_tour_actuel < new_tournoi.nombre_tour:
+                new_tournoi.generate_tour()
 
         print(
             Back.BLUE

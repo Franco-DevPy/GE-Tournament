@@ -47,8 +47,7 @@ def create_tournoi() -> Tournoi:
         liste_joueur=joueurs_selectionnes,
     )
 
-    print(Back.GREEN + "--- Le Tournois a été crée avec succes ---")
-
+    # GENERATE FIRST TOUR
     new_tournoi.generate_tour()
 
     save_tournois = new_tournoi.to_dict()

@@ -14,9 +14,15 @@ def start_match(tour_a_jouer: Tour):
 
     liste_matchs: List[Match] = tour_a_jouer.liste_match
 
+    print(
+        Back.BLUE
+        + f" -- Tour # {tour_a_jouer.number_tour} ---"
+        + Style.RESET_ALL
+        + "\n"
+    )
+
     for match_a_jouer in liste_matchs:
 
-        print(Back.BLUE + f" -- Tour #{tour_a_jouer.number_tour} \n ---")
         print(match_a_jouer)
         select_gagnat = [
             f"{match_a_jouer.joueur1.nom}",
@@ -45,7 +51,6 @@ def start_match(tour_a_jouer: Tour):
         + Style.RESET_ALL
         + "\n"
     )
-    tour_a_jouer.number_tour += 1
 
     return
 
