@@ -14,6 +14,7 @@ class Joueur:
         id_national,
         match_gagne=0,
         match_perdu=0,
+        matches_nulls=0,
         match_total=0,
         joueurs_rencontres=None,
     ) -> None:
@@ -23,6 +24,7 @@ class Joueur:
         self.id_national = id_national
         self.match_gagne = match_gagne
         self.match_perdu = match_perdu
+        self.matches_nulls = matches_nulls
         self.match_total = match_total
         self.jouers_rencontres = joueurs_rencontres or {}
 
@@ -32,6 +34,7 @@ class Joueur:
             f"{Fore.GREEN}Id national :{Style.RESET_ALL} {self.id_national}\n"
             f"{Fore.GREEN}Match gagné :{Style.RESET_ALL} {self.match_gagne}\n"
             f"{Fore.GREEN}Match perdu :{Style.RESET_ALL} {self.match_perdu}\n"
+            f"{Fore.GREEN}Match nul :{Style.RESET_ALL} {self.matches_nulls}\n"
             f"{Fore.GREEN}Total match joué :{Style.RESET_ALL} {self.match_total}"
         )
 
@@ -46,7 +49,7 @@ class Joueur:
         # )
 
     def egalite_match(self):
-        self.match_gagne += 1
+        self.match_gagne += 0.5
         self.match_total += 1
         # print(f"{Back.BLUE}-- Le match est nul -- {Style.RESET_ALL}")
 
@@ -61,9 +64,9 @@ class Joueur:
     def perdre_match(self):
         self.match_perdu += 1
         self.match_total += 1
-        print(
-            f"{Back.BLUE}--  Le joueur {self.nom} a perdu le match -- {Style.RESET_ALL}"
-        )
+        # print(
+        #     f"{Back.BLUE}--  Le joueur {self.nom} a perdu le match -- {Style.RESET_ALL}"
+        # )
 
     def to_dict(self):
         return {

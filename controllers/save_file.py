@@ -38,7 +38,7 @@ def save_data_file_tournement(tournois):
 
     data = json.dumps(tournois)
     Path("data/tournament.json").write_text(data)
-    print(Back.GREEN + "Le Tournoi a été sauvegardé avec succès")
+    # print(Back.GREEN + "Le Tournoi a été sauvegardé avec succès")
 
 
 def load_data_file_tournament():

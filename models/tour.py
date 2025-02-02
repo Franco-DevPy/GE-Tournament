@@ -20,16 +20,14 @@ class Tour:
             self.generate_matches()
 
     def generate_matches_first_tour(self) -> list:
-        print(
-            Back.BLUE
-            + f" -- Génération du TOUR Nro {self.number_tour} (generate_matches_first_tour)   --\n"
-        )
+        # print(
+        #     Back.BLUE
+        #     + f" -- Génération du TOUR Nro {self.number_tour} (generate_matches_first_tour)   --\n"
+        # )
         # print("jugadores seleccionados : ", joueurs_selectionnes)
         random.shuffle(self.liste_joueur)
         new_liste_match = []
         nombre_match = 1
-
-        nouveau_tour = self
 
         for paire_joueur in range(0, len(self.liste_joueur), 2):
 
@@ -64,7 +62,7 @@ class Tour:
     def generate_matches(self) -> list:
         print(
             Back.BLUE
-            + f" -- Génération du Tour (generate_matches) {self.number_tour} --"
+            + f" -- Génération HAZARD Tour (generate_matches) {self.number_tour} --"
         )
         new_liste_match = []
         nombre_match = 1

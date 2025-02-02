@@ -53,40 +53,41 @@ def start_app():
     ).ask()
 
     if respuesta == "Creér un Tournois":
+
         new_tournoi = create_tournoi()
 
         premier_tour = new_tournoi.liste_tour[0]
 
         menu_start_tournois(premier_tour)  # llama a start_match
 
-        while new_tournoi.nombre_tour_actuel <= new_tournoi.nombre_tour:
-            print("--------------nombre tour", new_tournoi.nombre_tour)
-            print(
-                "-----------------------nombre tour actuel",
-                new_tournoi.nombre_tour_actuel,
-            )
+        while len(new_tournoi.liste_tour) < new_tournoi.nombre_tour:
+            print("-------------------------------------------------")
+
+            if len(new_tournoi.liste_tour) < new_tournoi.nombre_tour:
+                new_tournoi.generate_tour()
             tours_suivante = new_tournoi.liste_tour[-1]
             menu_match_suivant()
+            print("start match - tour 2")
             start_match(tours_suivante)
             save_tournois = new_tournoi.to_dict()
             save_data_file_tournement(save_tournois)
-            menu_tour_suivant()
-
-            if new_tournoi.nombre_tour_actuel < new_tournoi.nombre_tour:
-                new_tournoi.generate_tour()
+            if len(new_tournoi.liste_tour) < new_tournoi.nombre_tour:
+                menu_tour_suivant()
+            pass
 
         print(
-            Back.BLUE
+            Back.BLACK
+            + Fore.BLUE
             + """
-        ___ ___ _  _   ___  _   _   _____ ___  _   _ ___ _  _  ___ ___ 
-        | __|_ _| \| | |   \| | | | |_   _/ _ \| | | | _ \ \| |/ _ \_ _|
-        | _| | || .` | | |) | |_| |   | || (_) | |_| |   / .` | (_) | | 
-        |_| |___|_|\_| |___/ \___/    |_| \___/ \___/|_|_\_|\_|\___/___|
+     ___ ___ _  _   ___  _   _   _____ ___  _   _ ___ _  _  ___ ___   
+    | __|_ _| \| | |   \| | | | |_   _/ _ \| | | | _ \ \| |/ _ \_ _| 
+    | _| | || .` | | |) | |_| |   | || (_) | |_| |   / .` | (_) | |  
+    |_| |___|_|\_| |___/ \___/    |_| \___/ \___/|_|_\_|\_|\___/___|
                 """
             + Style.RESET_ALL
             + "\n"
         )
-        menu_fin_tournois()
+        menu_fin_tournois(new_tournoi)
 
     if respuesta == "Gestion du Joueur":
         print("Gestion du joueur....")
@@ -190,7 +191,7 @@ def menu_back():
         resetApp()
 
 
-def menu_fin_tournois():
+def menu_fin_tournois(tournois: Tournoi):
     select_sub_menu = [
         "Voir le classement",
         "Revenir au Menu",
@@ -203,7 +204,8 @@ def menu_fin_tournois():
     ).ask()
 
     if response == "Voir le classement":
-        print("Voir le classement....")
+        tournois.voir_classement()
+
         menu_back()
 
     if response == "Revenir au Menu":
@@ -272,7 +274,6 @@ def menu_tour_suivant():
 
 def menu_match_suivant():
 
-    print("Match suivant....")
     select_start = ["Jouer Tour", "Revenir au Menu"]
 
     response = select(

@@ -3,6 +3,7 @@ from colorama import Fore, Back, init, Style
 from models.match import Match
 from models.joueur import Joueur
 from models.tour import Tour
+from typing import List
 
 init(autoreset=True)
 
@@ -16,10 +17,9 @@ class Tournoi:
         date_debut=0,
         date_fin=None,
         description="",
-        nombre_tour_actuel=1,
         # numero minimo de tour
         nombre_tour=4,
-        liste_joueur=[],
+        liste_joueur: List[Joueur] = [],
         liste_tour=[],
     ) -> None:
         self.nom_tournoi = nom_tournoi
@@ -27,7 +27,6 @@ class Tournoi:
         self.date_debut = date_debut
         self.date_fin = date_fin
         self.nombre_tour = nombre_tour
-        self.nombre_tour_actuel = nombre_tour_actuel
         self.liste_joueur = liste_joueur
         self.liste_tour = liste_tour
         self.description = description
@@ -58,28 +57,40 @@ class Tournoi:
             "date_fin": self.date_fin,
             "description": self.description,
             "nombre_tour": self.nombre_tour,
-            "nombre_tour_actuel": self.nombre_tour_actuel,
             "liste_joueur": [joueur.to_dict() for joueur in self.liste_joueur],
             "liste_match": [match.to_dict() for match in self.liste_tour],
         }
 
     def generate_tour(self):
 
+        numero_tour = len(self.liste_tour) + 1
+
         ## ACA DEBEMOS GENERAR TOUR Y NUMERO DE TOUR, DEFINIRLOS, PARA QUE EL WHILE FUNCIONE nombre_tour_actuel < new_tournoi.nombre_tour:
 
-        print(
-            Fore.GREEN
-            + f" -- Création du Tour #{self.nombre_tour_actuel} pour le tournoi {self.nom_tournoi} --"
-        )
+        # print(
+        #     Fore.GREEN
+        #     + f" -- Création du Tour #{numero_tour} pour le tournoi {self.nom_tournoi} --"
+        # )
 
-        nouveau_tour = Tour(
-            number_tour=self.nombre_tour_actuel,
-            tournoi=self,
-        )
+        nouveau_tour = Tour(tournoi=self, number_tour=numero_tour)
 
         self.liste_tour.append(nouveau_tour)
-        self.nombre_tour_actuel += 1
-        print("numero de tour : ", nouveau_tour.number_tour)
+
+    def voir_classement(self):
+
+        print(" -- Classement -- ")
+
+        order_joueur = sorted(
+            self.liste_joueur, key=lambda joueur: joueur.match_gagne, reverse=True
+        )
+
+        for joueur in order_joueur:
+            print(
+                f"{Back.BLACK + Fore.WHITE} -♛ -{joueur.nom} {joueur.prenom} : {joueur.id_national} ♚- {Style.RESET_ALL}\n"
+                f"{Fore.GREEN}Match gagné :{Style.RESET_ALL} {joueur.match_gagne}\n"
+                f"{Fore.GREEN}Match perdu :{Style.RESET_ALL} {joueur.match_perdu}\n"
+                f"{Fore.GREEN}Match perdu :{Style.RESET_ALL} {joueur.match_perdu}\n"
+            )
 
     def get_all_tours(self):
         """Recuper tous les tours"""
@@ -94,7 +105,6 @@ class Tournoi:
             date_fin=data["date_fin"],
             description=data["description"],
             nombre_tour=data["nombre_tour"],
-            nombre_tour_actuel=data["nombre_tour_actuel"],
             liste_joueur=[Joueur.from_dict(joueur) for joueur in data["liste_joueur"]],
             liste_match=[Match.from_dict(match) for match in data["liste_match"]],
         )
