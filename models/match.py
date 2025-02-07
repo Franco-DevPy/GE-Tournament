@@ -8,10 +8,12 @@ class Match:
 
     nombre_match = 0
 
-    def __init__(self, nombre_match, joueur1, joueur2, score_jouer1, score_jouer2):
+    def __init__(
+        self, nombre_match, joueur1: Joueur, joueur2: Joueur, score_jouer1, score_jouer2
+    ):
         self.nombre_match = nombre_match
-        self.joueur1 = joueur1
-        self.joueur2 = joueur2
+        self.joueur1: Joueur = joueur1
+        self.joueur2: Joueur = joueur2
         self.score_jouer1 = score_jouer1
         self.score_jouer2 = score_jouer2
 

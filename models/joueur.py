@@ -39,7 +39,7 @@ class Joueur:
         )
 
     def __repr__(self):
-        return f"Joueur({self.nom}, {self.prenom}, ID: {self.id_national})"
+        return f"Joueur({self.nom}, {self.prenom}, ID: {self.id_national}), Match gagné: {self.match_gagne}, joueurs rencontrés: {self.jouers_rencontres}"
 
     def gagner_match(self):
         self.match_gagne += 1
@@ -67,6 +67,11 @@ class Joueur:
         # print(
         #     f"{Back.BLUE}--  Le joueur {self.nom} a perdu le match -- {Style.RESET_ALL}"
         # )
+
+    def ajouter_joueur_rencontre(self, joueur_id, tour):
+        if joueur_id not in self.jouers_rencontres:
+            self.jouers_rencontres[joueur_id] = []
+        self.jouers_rencontres[joueur_id].append(tour)
 
     def to_dict(self):
         return {
