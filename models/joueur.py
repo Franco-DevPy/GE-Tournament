@@ -15,7 +15,7 @@ class Joueur:
         match_gagne=0,
         match_perdu=0,
         matches_nulls=0,
-        match_total=0,
+        score_tournoi=0,
         joueurs_rencontres=None,
     ) -> None:
         self.nom = nom
@@ -25,7 +25,7 @@ class Joueur:
         self.match_gagne = match_gagne
         self.match_perdu = match_perdu
         self.matches_nulls = matches_nulls
-        self.match_total = match_total
+        self.score_tournoi = score_tournoi
         self.jouers_rencontres = joueurs_rencontres or {}
 
     def __str__(self):
@@ -35,22 +35,21 @@ class Joueur:
             f"{Fore.GREEN}Match gagné :{Style.RESET_ALL} {self.match_gagne}\n"
             f"{Fore.GREEN}Match perdu :{Style.RESET_ALL} {self.match_perdu}\n"
             f"{Fore.GREEN}Match nul :{Style.RESET_ALL} {self.matches_nulls}\n"
-            f"{Fore.GREEN}Total match joué :{Style.RESET_ALL} {self.match_total}"
         )
 
     def __repr__(self):
-        return f"Joueur({self.nom}, {self.prenom}, ID: {self.id_national}), Match gagné: {self.match_gagne}, joueurs rencontrés: {self.jouers_rencontres}"
+        return f"Joueur({self.nom}, {self.prenom}, ID: {self.id_national}), Score Total: {self.score_tournoi}, "
 
     def gagner_match(self):
         self.match_gagne += 1
-        self.match_total += 1
+        self.score_tournoi += 1
         # print(
         #     f"{Back.GREEN}-- Le joueur {self.nom} a gagné le match --{Style.RESET_ALL}"
         # )
 
     def egalite_match(self):
-        self.match_gagne += 0.5
-        self.match_total += 1
+        self.match_gagne += 0
+        self.score_tournoi += 0.5
         # print(f"{Back.BLUE}-- Le match est nul -- {Style.RESET_ALL}")
 
     def save_joueur_match(self, joueur_id):
@@ -59,14 +58,19 @@ class Joueur:
 
     def reset_joueur_match(self):
         self.matches_joues = []
+        self.score_tournoi = 0
         # print(f"{Back.GREEN} Les matchs ont été réinitialisés{Style.RESET_ALL}")
 
     def perdre_match(self):
         self.match_perdu += 1
-        self.match_total += 1
+        self.score_tournoi += 0
         # print(
         #     f"{Back.BLUE}--  Le joueur {self.nom} a perdu le match -- {Style.RESET_ALL}"
         # )
+
+    def voir_score(self):
+        print("Score du joueur : ", self.score_tournoi)
+        pass
 
     def ajouter_joueur_rencontre(self, joueur_id, tour):
         if joueur_id not in self.jouers_rencontres:
@@ -80,7 +84,13 @@ class Joueur:
             "id_national": self.id_national,
             "match_gagne": self.match_gagne,
             "match_perdu": self.match_perdu,
-            "match_total": self.match_total,
+            "score_tournoi": self.score_tournoi,
+        }
+
+    def to_dict_for_tournois(self):
+        return {
+            "id_national": self.id_national,
+            "score_tournoi": self.score_tournoi,
         }
 
     # ENTENDER ESTO
@@ -93,5 +103,5 @@ class Joueur:
             id_national=data["id_national"],
             match_gagne=data.get("match_gagne", 0),
             match_perdu=data.get("match_perdu", 0),
-            match_total=data.get("match_total", 0),
+            score_tournoi=data.get("score_tournoi", 0),
         )

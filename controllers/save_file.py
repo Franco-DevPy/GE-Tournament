@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 import os
-from colorama import Fore, Back
+from colorama import Fore, Back, Style
 from models.joueur import Joueur
 from models.tournoi import Tournoi
 
@@ -31,14 +31,51 @@ def load_data_file_players():
 
 
 # TOURNEMENT DATA
-def save_data_file_tournement(tournois):
-    if not isinstance(tournois, dict):
-        print(Back.RED + " Error , argument is not a tournois ")
-        return
+def save_data_file_tournement(new_tournoi: Tournoi):
+    file_path = Path("data/tournament.json")
 
-    data = json.dumps(tournois)
-    Path("data/tournament.json").write_text(data)
-    # print(Back.GREEN + "Le Tournoi a été sauvegardé avec succès")
+    # 1️⃣ Cargar los torneos guardados
+    if file_path.exists():
+        try:
+            liste_tournois = json.loads(file_path.read_text())
+        except json.JSONDecodeError:
+            liste_tournois = []
+    else:
+        liste_tournois = []
+
+    # 2️⃣ Convertir el torneo actual en dict
+    save_tournois = new_tournoi.to_dict()
+
+    # 3️⃣ Buscar si ya existe en la lista
+    tournoi_existant = next(
+        (t for t in liste_tournois if t["nom_tournoi"] == save_tournois["nom_tournoi"]),
+        None,
+    )
+
+    if tournoi_existant:
+        # 4️⃣ Si ya existe, actualizarlo
+        liste_tournois = [
+            save_tournois if t["nom_tournoi"] == save_tournois["nom_tournoi"] else t
+            for t in liste_tournois
+        ]
+    else:
+        # 5️⃣ Si no existe, agregarlo
+        liste_tournois.append(save_tournois)
+
+    # 6️⃣ Guardar la lista actualizada en el archivo
+    file_path.write_text(json.dumps(liste_tournois, indent=4))
+
+    print(Back.GREEN + "Tournoi sauvegardé avec succès !" + Style.RESET_ALL)
+
+
+# def save_data_file_tournement(tournois):
+#     if not isinstance(tournois, list):
+#         print(Back.RED + " Error , argument is not a tournois ")
+#         return
+
+#     data = json.dumps(tournois)
+#     Path("data/tournament.json").write_text(data)
+#     # print(Back.GREEN + "Le Tournoi a été sauvegardé avec succès")
 
 
 def load_data_file_tournament():

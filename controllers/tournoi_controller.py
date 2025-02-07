@@ -29,7 +29,6 @@ custom_style = QuestionaryStyle(
 
 def create_tournoi() -> Tournoi:
     print(Back.BLUE + "-----Creation du Tournoi-----")
-    liste_tournois = []
 
     # reponse_dernier_tournoi = get_dernier_tournois()
     nom_tournoi = input("Entrez le NOM du Tournoi : ")
@@ -50,10 +49,18 @@ def create_tournoi() -> Tournoi:
     # GENERATE FIRST TOUR
     new_tournoi.generate_tour()
 
-    save_tournois = new_tournoi.to_dict()
+    # save_tournois = new_tournoi.to_dict()
 
-    liste_tournois.append(save_tournois)
-
-    save_data_file_tournement(save_tournois)
+    save_data_file_tournement(new_tournoi)
 
     return new_tournoi
+
+
+def charger_tournois_en_cours():
+    print("Tournois en cours")
+    pass
+
+
+def charger_tournois_termines():
+    print("Tournois terminés")
+    pass

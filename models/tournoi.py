@@ -20,7 +20,8 @@ class Tournoi:
         # numero minimo de tour
         nombre_tour=4,
         liste_joueur: List[Joueur] = [],
-        liste_tour=[],
+        liste_tour: List[Tour] = [],
+        finit=False,
     ) -> None:
         self.nom_tournoi = nom_tournoi
         self.location = location
@@ -30,6 +31,7 @@ class Tournoi:
         self.liste_joueur = liste_joueur
         self.liste_tour = liste_tour
         self.description = description
+        self.finit = finit
 
     def __str__(self):
         return (
@@ -40,9 +42,6 @@ class Tournoi:
             f"Liste de Tour {self.nombre_tour}\n"
             f"Joueurs qui participent : {[joueur.nom for joueur in self.liste_joueur]}"  # Mostrar solo los nombres de los jugadores
         )
-
-    def set_matches(self, nouveaux_matches):
-        self.matches = nouveaux_matches
 
     def voir_histoiral_match(self):
         print(Back.CYAN + Fore.BLACK + "HISTORIAL DES MATCHS :" + Style.RESET_ALL)
@@ -57,8 +56,11 @@ class Tournoi:
             "date_fin": self.date_fin,
             "description": self.description,
             "nombre_tour": self.nombre_tour,
-            "liste_joueur": [joueur.to_dict() for joueur in self.liste_joueur],
-            "liste_match": [match.to_dict() for match in self.liste_tour],
+            # "liste_joueur": [
+            #     joueur.to_dict_for_tournois() for joueur in self.liste_joueur
+            # ],
+            "liste_tour": [tour.to_dict() for tour in self.liste_tour],
+            "finit": self.finit,
         }
 
     def generate_tour(self):
@@ -81,15 +83,13 @@ class Tournoi:
         print(" -- Classement -- ")
 
         order_joueur = sorted(
-            self.liste_joueur, key=lambda joueur: joueur.match_gagne, reverse=True
+            self.liste_joueur, key=lambda joueur: joueur.score_tournoi, reverse=True
         )
 
         for joueur in order_joueur:
             print(
                 f"{Back.BLACK + Fore.WHITE} -♛ -{joueur.nom} {joueur.prenom} : {joueur.id_national} ♚- {Style.RESET_ALL}\n"
-                f"{Fore.GREEN}Match gagné :{Style.RESET_ALL} {joueur.match_gagne}\n"
-                f"{Fore.GREEN}Match perdu :{Style.RESET_ALL} {joueur.match_perdu}\n"
-                f"{Fore.GREEN}Match perdu :{Style.RESET_ALL} {joueur.match_perdu}\n"
+                f"{Fore.GREEN} Score Total-Tournoi :{Style.RESET_ALL} {joueur.score_tournoi}\n"
             )
 
     def get_all_tours(self):
@@ -107,6 +107,7 @@ class Tournoi:
             nombre_tour=data["nombre_tour"],
             liste_joueur=[Joueur.from_dict(joueur) for joueur in data["liste_joueur"]],
             liste_match=[Match.from_dict(match) for match in data["liste_match"]],
+            finit=data["finit"],
         )
 
     # def init_joueurs_tournoi(self) -> list:

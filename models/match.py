@@ -6,8 +6,6 @@ import random
 
 class Match:
 
-    nombre_match = 0
-
     def __init__(
         self, nombre_match, joueur1: Joueur, joueur2: Joueur, score_jouer1, score_jouer2
     ):
@@ -58,8 +56,8 @@ class Match:
     def to_dict(self):
         return {
             "nombre_match": self.nombre_match,
-            "joueur1": self.joueur1.to_dict(),
-            "joueur2": self.joueur2.to_dict(),
-            "score_jouer1": self.score_jouer1,
-            "score_jouer2": self.score_jouer2,
+            "joueur1": self.joueur1.to_dict_for_tournois(),
+            "joueur2": self.joueur2.to_dict_for_tournois(),
+            # "score_jouer1": self.score_jouer1,
+            # "score_jouer2": self.score_jouer2,
         }

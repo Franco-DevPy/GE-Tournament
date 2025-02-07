@@ -61,23 +61,18 @@ def start_app():
         menu_start_tournois(premier_tour)  # llama a start_match
 
         while len(new_tournoi.liste_tour) < new_tournoi.nombre_tour:
-            print("-------------------------------------------------")
-
             if len(new_tournoi.liste_tour) < new_tournoi.nombre_tour:
                 new_tournoi.generate_tour()
-            tours_suivante = new_tournoi.liste_tour[-1]
             menu_match_suivant()
-            print("start match - tour 2")
+            tours_suivante = new_tournoi.liste_tour[-1]
             start_match(tours_suivante)
-            save_tournois = new_tournoi.to_dict()
-            save_data_file_tournement(save_tournois)
+            save_data_file_tournement(new_tournoi)
             if len(new_tournoi.liste_tour) < new_tournoi.nombre_tour:
                 menu_tour_suivant()
             pass
 
         print(
             Back.BLACK
-            + Fore.BLUE
             + """
      ___ ___ _  _   ___  _   _   _____ ___  _   _ ___ _  _  ___ ___   
     | __|_ _| \| | |   \| | | | |_   _/ _ \| | | | _ \ \| |/ _ \_ _| 
@@ -87,6 +82,7 @@ def start_app():
             + Style.RESET_ALL
             + "\n"
         )
+        new_tournoi.finit = True
         menu_fin_tournois(new_tournoi)
 
     if respuesta == "Gestion du Joueur":
@@ -231,8 +227,8 @@ def menu_start_tournois(premier_tour: Tour):
 
 def menu_charger_tournois():
     select_tournois = [
-        "Charger Tournois",
-        "Voir Tournois",
+        "Charger Tournois en Cours",
+        "Charger Tournois Terminés",
         "Revenir au Menu",
     ]
 
@@ -242,13 +238,12 @@ def menu_charger_tournois():
         style=custom_style,
     ).ask()
 
-    if response == "Charger Tournois":
-        print("Charger Tournois....")
+    if response == "Charger Tournois en Cours":
+        charger_tournois_en_cours()
         resetApp()
 
-    if response == "Voir Tournois":
-        print("Voir Tournois....")
-
+    if response == "Charger Tournois Terminés":
+        charger_tournois_termines()
         resetApp()
 
     if response == "Revenir au Menu":
