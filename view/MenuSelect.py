@@ -43,7 +43,7 @@ def start_app():
     select_menu = [
         "Creér un Tournois",
         "Gestion du Joueur",
-        "Charger Dernier Tournois",
+        "Gestion des Tournois",
         "Exit",
     ]
 
@@ -84,7 +84,7 @@ def start_app():
             + Style.RESET_ALL
             + "\n"
         )
-        new_tournoi.finit = True
+        new_tournoi.date_fin = new_tournoi.get_time()
         save_data_file_tournement(new_tournoi)
         menu_fin_tournois(new_tournoi)
 
@@ -92,7 +92,7 @@ def start_app():
         print("Gestion du joueur....")
         menu_joueur()
 
-    if respuesta == "Charger Dernier Tournois":
+    if respuesta == "Gestion des Tournois":
         menu_charger_tournois()
         print("Dernier tournois....")
 
@@ -243,11 +243,11 @@ def menu_charger_tournois():
 
     if response == "Charger Tournois en Cours":
         # charger_tournois_en_cours()
-        afficher_tournois()
+        # afficher_tournois()
         resetApp()
 
     if response == "Charger Tournois Terminés":
-        # charger_tournois_termines()
+        charger_tournois_termines()
         resetApp()
 
     if response == "Revenir au Menu":
@@ -352,46 +352,6 @@ def exit_app():
     )
     exit()
     return
-
-
-def afficher_tournois():
-    tournois: List[Tournoi] = load_tournois()
-
-    print("afficher tournoi funccion------------------")
-    for torneo in tournois:
-        print(
-            f"Nom du Tournio : {torneo.nom_tournoi} , Date de Début : {torneo.date_debut} , Nombre de Tour : {torneo.nombre_tour}"
-        )
-
-    if not tournois:
-        return
-
-    print("1️⃣ Voir les tournois terminés")
-    print("2️⃣ Voir les tournois en cours")
-    choix = input("Votre choix: ")
-
-    if choix == "1":
-        tournois_finis = [t for t in tournois if t.get("finit", False)]
-        print("\n✅ Tournois terminés:")
-        for i, tournoi in enumerate(tournois_finis):
-            print(f"{i+1}. {tournoi['nom_tournoi']} - {tournoi['date_debut']}")
-
-        input("\nAppuyez sur Entrée pour retourner au menu.")
-
-    elif choix == "2":
-        tournois_en_cours = [t for t in tournois if not t.get("finit", False)]
-        print("\n⏳ Tournois en cours:")
-        for i, tournoi in enumerate(tournois_en_cours):
-            print(f"{i+1}. {tournoi['nom_tournoi']} - {tournoi['date_debut']}")
-
-        selection = input("\nEntrez le numéro du tournoi à continuer: ")
-        if selection.isdigit():
-            index = int(selection) - 1
-            if 0 <= index < len(tournois_en_cours):
-                tournoi_selectionne = tournois_en_cours[index]
-                continuer_tournoi(tournoi_selectionne)
-            else:
-                print(Back.RED + " Numéro invalide.")
 
 
 def continuer_tournoi(tournoi_dict):

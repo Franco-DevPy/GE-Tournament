@@ -4,7 +4,7 @@ from controllers.joueur_controller import select_joueur_tournoi
 from colorama import Fore, Back, Style, init
 from datetime import datetime as dt
 from questionary import select, Style as QuestionaryStyle
-from models.tour import Tour
+from controllers.load_file import load_tournois
 
 # from save_file import save_data_file_tournement
 
@@ -33,7 +33,7 @@ def create_tournoi() -> Tournoi:
     # reponse_dernier_tournoi = get_dernier_tournois()
     nom_tournoi = input("Entrez le NOM du Tournoi : ")
     lieu_tournoi = input("Entrez le LIEU du Tournoi : ")
-    date_debut = dt.now().strftime("%Y-%m-%d %H:%M")
+    # date_debut = dt.now().strftime("%Y-%m-%d %H:%M")
 
     description_tournoi = input("Entrez une description du Tournoi : ")
     joueurs_selectionnes = select_joueur_tournoi()
@@ -42,15 +42,28 @@ def create_tournoi() -> Tournoi:
         nom_tournoi=nom_tournoi,
         location=lieu_tournoi,
         description=description_tournoi,
-        date_debut=date_debut,
         liste_joueur=joueurs_selectionnes,
     )
 
     # GENERATE FIRST TOUR
     new_tournoi.generate_tour()
 
-    # save_tournois = new_tournoi.to_dict()
-
     save_data_file_tournement(new_tournoi)
 
     return new_tournoi
+
+
+def charger_tournois_termines():
+    print(Back.BLUE + "-----Liste des tournois terminés-----")
+    liste_tournois = load_tournois()
+    print("Liste des tournois terminés : ")
+    print(liste_tournois)
+    print("\n")
+    print("Liste des tournois terminés ITERADO : ")
+    nt = 0
+    for tournoi in liste_tournois:
+        print(f"Tournoi : {nt} ")
+        print(tournoi)
+        nt += 1
+
+    pass

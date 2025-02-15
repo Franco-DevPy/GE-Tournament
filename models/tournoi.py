@@ -5,6 +5,7 @@ from models.joueur import Joueur
 from models.tour import Tour
 from typing import List
 from controllers.data_load_player import load_data_file_players
+import datetime
 
 init(autoreset=True)
 
@@ -15,24 +16,22 @@ class Tournoi:
         self,
         nom_tournoi="",
         location="",
-        date_debut=0,
+        date_debut=None,
         date_fin=None,
         description="",
         # numero minimo de tour
         nombre_tour=4,
         liste_joueur: List[Joueur] = [],
         liste_tour: List[Tour] = [],
-        finit=False,
     ) -> None:
         self.nom_tournoi = nom_tournoi
         self.location = location
-        self.date_debut = date_debut
+        self.date_debut = date_debut if date_debut else self.get_time()
         self.date_fin = date_fin
         self.nombre_tour = nombre_tour
         self.liste_joueur = liste_joueur
         self.liste_tour = liste_tour
         self.description = description
-        self.finit = finit
 
     def __str__(self):
         return (
@@ -82,6 +81,9 @@ class Tournoi:
         """Recuper tous les tours"""
         return self.liste_tour
 
+    def get_time(self):
+        return datetime.datetime.now().strptime("%d/%m/%Y %H:%M")
+
     def to_dict(self):
         return {
             "nom_tournoi": self.nom_tournoi,
@@ -92,7 +94,6 @@ class Tournoi:
             "nombre_tour": self.nombre_tour,
             "liste_joueur": [joueur.to_dict_for_list() for joueur in self.liste_joueur],
             "liste_tour": [tour.to_dict() for tour in self.liste_tour],
-            "finit": self.finit,
         }
 
     @classmethod
