@@ -66,79 +66,23 @@ def ajouter_joueur():
     print(new_joueur)
 
 
-# [joueur1, joueur2…]
-
-
-# Pour chercher un joueur par ID
-# for joueur in joueurs:
-#   if joueur.id_national = id:
-#       return joueur
 def get_liste_joueur():
     joueurs = load_data_file_players()
     joueurs.sort(key=lambda joueur: joueur.nom)
     return joueurs
 
 
-# { "id_1": joueur1, "id_2": joueur2… }
-
-
-# Pour chercher un joueur par ID
-# return joueurs[id]
-def get_all_players():
+def get_all_players_id_dict():
     players = load_data_file_players()
+    players.sort(key=lambda joueur: joueur.nom)
     players_dict = {}
+
     for player in players:
         players_dict[player.id_national] = player
 
     return players_dict
 
 
-# tournement.json
-# [
-# {
-#   "name": "Mon super tournoi"
-#   "players": {"id": "AG1234", "points": 3}, {"id": "GR2234", "points": 3}]
-#   "rounds": [
-#       {
-#           matches: {
-#               player1: "AG1234"
-#               player2: "GR2234"
-#               winner: 1
-#           }
-#       }
-#   ]
-# }
-# ]
-
-# ACA PUEDO HACER UNA TYPO DE EL LA CLASSE O UN ENUM PARA QUE ASEGUREMOS Y DETECTE "la classe jugador"
-# def voir_liste_joueur(all_joueur):
-#     print(Back.CYAN + Fore.BLACK + "LISTE DES JOUEURS :" + Style.RESET_ALL)
-#     for joueur in all_joueur:
-#         print(Fore.GREEN + "Nom:" + Fore.WHITE + joueur["nom"])
-#         print(Fore.GREEN + "Prénom:" + Fore.WHITE + joueur["prenom"])
-#         print(Fore.GREEN + "ID National:" + Fore.WHITE + joueur["id_national"])
-#         print(
-#             Fore.GREEN
-#             + "Matchs Gagnés:"
-#             + Fore.WHITE
-#             + str(joueur.get("match_gagne", 0))
-#         )
-#         print(
-#             Fore.GREEN
-#             + "Matchs Perdus:"
-#             + Fore.WHITE
-#             + str(joueur.get("match_perdu", 0))
-#         )
-#         print(
-#             Fore.GREEN
-#             + "Matchs Totals:"
-#             + Fore.WHITE
-#             + str(joueur.get("match_total", 0))
-#             + "\n"
-#         )
-
-
-# QUE TIPO E RETOUR DEBEMOS PONER
 def voir_liste_joueur(all_joueur):
     print(Back.CYAN + Fore.BLACK + "LISTE DES JOUEURS :" + Style.RESET_ALL)
     for joueur in all_joueur:
@@ -175,14 +119,3 @@ def select_joueur_tournoi() -> list[Joueur]:
 
         else:
             return rpse_choix_joueur
-
-    # output = [e.value for e in rpse_choix_joueur]
-
-    # output = []
-    # for element in rpse_choix_joueur:
-    #     output.append(element.value)
-
-
-def select_paire_joueur():
-
-    liste_paire_joueur = []

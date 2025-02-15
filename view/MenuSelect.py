@@ -248,7 +248,6 @@ def menu_charger_tournois():
 
     if response == "Charger Tournois Terminés":
         charger_tournois_termines()
-        resetApp()
 
     if response == "Revenir au Menu":
         resetApp()

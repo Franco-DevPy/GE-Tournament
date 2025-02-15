@@ -52,13 +52,6 @@ class Tournoi:
 
         numero_tour = len(self.liste_tour) + 1
 
-        ## ACA DEBEMOS GENERAR TOUR Y NUMERO DE TOUR, DEFINIRLOS, PARA QUE EL WHILE FUNCIONE nombre_tour_actuel < new_tournoi.nombre_tour:
-
-        # print(
-        #     Fore.GREEN
-        #     + f" -- Création du Tour #{numero_tour} pour le tournoi {self.nom_tournoi} --"
-        # )
-
         nouveau_tour = Tour(tournoi=self, number_tour=numero_tour)
 
         self.liste_tour.append(nouveau_tour)
@@ -97,50 +90,23 @@ class Tournoi:
         }
 
     @classmethod
-    def from_dict(cls, data):
-        # Cargar los datos completos de los jugadores
-        joueurs_complets = load_data_file_players()
-        joueurs_dict = {joueur.id_national: joueur for joueur in joueurs_complets}
-
-        print("joueurs_dict", joueurs_dict)
-
-        # Imprimir el contenido de 'data' para depuración
-        print(Back.BLUE + "data", data)
-        # Verificar si 'liste_joueur' existe en los datos
-        if "liste_joueur" not in data:
-            raise KeyError(
-                "La clé 'liste_joueur' est manquante dans les données du tournoi."
-            )
-        # Buscar los jugadores completos usando su id_national
-
-        liste_joueur = [
-            joueurs_dict[joueur["id_national"]] for joueur in data["liste_joueur"]
-        ]
-
+    def from_dict(cls, data: dict):
+        # Asegúrate de que todos los campos necesarios están presentes
         return cls(
-            nom_tournoi=data["nom_tournoi"],
-            location=data["location"],
-            date_debut=data["date_debut"],
-            date_fin=data["date_fin"],
-            description=data["description"],
-            nombre_tour=data["nombre_tour"],
-            liste_joueur=liste_joueur,
-            liste_tour=[Tour.from_dict(tour) for tour in data["liste_tour"]],
-            finit=data["finit"],
+            nom_tournoi=data.get("nom_tournoi", ""),
+            location=data.get("location", ""),
+            date_debut=data.get("date_debut"),
+            date_fin=data.get("date_fin"),
+            description=data.get("description", ""),
+            nombre_tour=data.get("nombre_tour", 4),
+            liste_joueur=[
+                Joueur.to_dict_for_tournois(joueur_data)
+                for joueur_data in data.get("liste_joueur", [])
+            ],
+            liste_tour=[
+                Tour.from_dict(tour_data) for tour_data in data.get("liste_tour", [])
+            ],
         )
-
-    # def from_dict(cls, data):
-    #     return cls(
-    #         nom_tournoi=data["nom_tournoi"],
-    #         location=data["location"],
-    #         date_debut=data["date_debut"],
-    #         date_fin=data["date_fin"],
-    #         description=data["description"],
-    #         nombre_tour=data["nombre_tour"],
-    #         # liste_joueur=[Joueur.from_dict(joueur) for joueur in data["liste_joueur"]],
-    #         liste_tour=[Tour.from_dict(tour) for tour in data["liste_tour"]],
-    #         finit=data["finit"],
-    #     )
 
     # def init_joueurs_tournoi(self) -> list:
     #     raise NotImplementedError

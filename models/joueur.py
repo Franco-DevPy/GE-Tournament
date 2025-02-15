@@ -113,35 +113,35 @@ class Joueur:
         )
 
 
-joueurs_list = [
-    Joueur("toto", "tutu", "18/12/03", "AU12345"),
-    Joueur("toto", "tutu", "18/12/03", "AU12346"),
-    Joueur("toto", "tutu", "18/12/03", "AU12347"),
-]
-id = "AU12346"
+# joueurs_list = [
+#     Joueur("toto", "tutu", "18/12/03", "AU12345"),
+#     Joueur("toto", "tutu", "18/12/03", "AU12346"),
+#     Joueur("toto", "tutu", "18/12/03", "AU12347"),
+# ]
+# id = "AU12346"
 
 
-def search_joueur_in_list(joueurs, id):
-    for joueur in joueurs:
-        if joueur.id_national == id:
-            return joueur
+# def search_joueur_in_list(joueurs, id):
+#     for joueur in joueurs:
+#         if joueur.id_national == id:
+#             return joueur
 
 
-joueurs_dict = {
-    "AU12345": Joueur("toto", "tutu", "18/12/03", "AU12345"),
-    "AU12346": Joueur("toto", "tutu", "18/12/03", "AU12346"),
-    "AU12347": Joueur("toto", "tutu", "18/12/03", "AU12347"),
-}
+# joueurs_dict = {
+#     "AU12345": Joueur("toto", "tutu", "18/12/03", "AU12345"),
+#     "AU12346": Joueur("toto", "tutu", "18/12/03", "AU12346"),
+#     "AU12347": Joueur("toto", "tutu", "18/12/03", "AU12347"),
+# }
 
 
-def searche_joueur_dict(joueurs, id):
-    return joueurs[id]
+# def searche_joueur_dict(joueurs, id):
+#     return joueurs[id]
 
 
-json_list = JSON.parse()
+# json_list = JSON.parse()
 
-joueur_dict = {}
+# joueur_dict = {}
 
-for json_joueur in json_list:
-    joueur = Joueur.from_dict(json_joueur)
-    joueur_dict[joueur.id_national] = joueur
+# for json_joueur in json_list:
+#     joueur = Joueur.from_dict(json_joueur)
+#     joueur_dict[joueur.id_national] = joueur
