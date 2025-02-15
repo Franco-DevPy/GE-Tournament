@@ -40,33 +40,28 @@ class Joueur:
     def __repr__(self):
         return f"Joueur({self.nom}, {self.prenom}, ID: {self.id_national}), Score Total: {self.score_tournoi}, "
 
+    # RECUPERAR EL ID PARA LUEGO JUNTARLO CON TODA LA DATA DEL JUGADORs
+    def get_joueur_by_id(self, id_national):
+        pass
+
     def gagner_match(self):
         self.match_gagne += 1
         self.score_tournoi += 1
-        # print(
-        #     f"{Back.GREEN}-- Le joueur {self.nom} a gagné le match --{Style.RESET_ALL}"
-        # )
 
     def egalite_match(self):
         self.match_gagne += 0
         self.score_tournoi += 0.5
-        # print(f"{Back.BLUE}-- Le match est nul -- {Style.RESET_ALL}")
 
     def save_joueur_match(self, joueur_id):
         self.matches_joues.append(joueur_id)
-        # print(f"{Back.GREEN} Le match a été sauvegardé{Style.RESET_ALL}")
 
     def reset_joueur_match(self):
         self.matches_joues = []
         self.score_tournoi = 0
-        # print(f"{Back.GREEN} Les matchs ont été réinitialisés{Style.RESET_ALL}")
 
     def perdre_match(self):
         self.match_perdu += 1
         self.score_tournoi += 0
-        # print(
-        #     f"{Back.BLUE}--  Le joueur {self.nom} a perdu le match -- {Style.RESET_ALL}"
-        # )
 
     def voir_score(self):
         print("Score du joueur : ", self.score_tournoi)
@@ -93,7 +88,11 @@ class Joueur:
             "score_tournoi": self.score_tournoi,
         }
 
-    # ENTENDER ESTO
+    def to_dict_for_list(self):
+        return {
+            "id_national": self.id_national,
+        }
+
     @classmethod
     def from_dict(cls, data):
         return cls(
@@ -105,3 +104,44 @@ class Joueur:
             match_perdu=data.get("match_perdu", 0),
             score_tournoi=data.get("score_tournoi", 0),
         )
+
+    @classmethod
+    def from_dict_for_tournois(cls, data):
+        return cls(
+            id_national=data["id_national"],
+            score_tournoi=data.get("score_tournoi", 0),
+        )
+
+
+joueurs_list = [
+    Joueur("toto", "tutu", "18/12/03", "AU12345"),
+    Joueur("toto", "tutu", "18/12/03", "AU12346"),
+    Joueur("toto", "tutu", "18/12/03", "AU12347"),
+]
+id = "AU12346"
+
+
+def search_joueur_in_list(joueurs, id):
+    for joueur in joueurs:
+        if joueur.id_national == id:
+            return joueur
+
+
+joueurs_dict = {
+    "AU12345": Joueur("toto", "tutu", "18/12/03", "AU12345"),
+    "AU12346": Joueur("toto", "tutu", "18/12/03", "AU12346"),
+    "AU12347": Joueur("toto", "tutu", "18/12/03", "AU12347"),
+}
+
+
+def searche_joueur_dict(joueurs, id):
+    return joueurs[id]
+
+
+json_list = JSON.parse()
+
+joueur_dict = {}
+
+for json_joueur in json_list:
+    joueur = Joueur.from_dict(json_joueur)
+    joueur_dict[joueur.id_national] = joueur

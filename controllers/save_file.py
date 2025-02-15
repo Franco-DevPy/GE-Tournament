@@ -17,24 +17,10 @@ def save_data_file_players(players: list):
     print(Back.CYAN + Fore.BLACK + " - LES JOUEURS ONT ÉTÉ SAUVEGARDÉS AVEC SUCCÈS - ")
 
 
-# como probar funciones ? cuando hay varias en la app
-def load_data_file_players():
-    try:
-        data = Path("data/players.json").read_text(encoding="utf-8")
-        players_list = json.loads(data)
-        # Convertir cada diccionario en un objeto Joueur
-        joueurs = [Joueur.from_dict(player_data) for player_data in players_list]
-        return joueurs
-    except Exception as e:
-        print(f"Error en load_data_file_players: {e}")
-        return []
-
-
 # TOURNEMENT DATA
 def save_data_file_tournement(new_tournoi: Tournoi):
     file_path = Path("data/tournament.json")
 
-    # 1️⃣ Cargar los torneos guardados
     if file_path.exists():
         try:
             liste_tournois = json.loads(file_path.read_text())
@@ -43,29 +29,35 @@ def save_data_file_tournement(new_tournoi: Tournoi):
     else:
         liste_tournois = []
 
-    # 2️⃣ Convertir el torneo actual en dict
     save_tournois = new_tournoi.to_dict()
 
-    # 3️⃣ Buscar si ya existe en la lista
     tournoi_existant = next(
         (t for t in liste_tournois if t["nom_tournoi"] == save_tournois["nom_tournoi"]),
         None,
     )
 
     if tournoi_existant:
-        # 4️⃣ Si ya existe, actualizarlo
         liste_tournois = [
             save_tournois if t["nom_tournoi"] == save_tournois["nom_tournoi"] else t
             for t in liste_tournois
         ]
     else:
-        # 5️⃣ Si no existe, agregarlo
         liste_tournois.append(save_tournois)
 
-    # 6️⃣ Guardar la lista actualizada en el archivo
     file_path.write_text(json.dumps(liste_tournois, indent=4))
 
     print(Back.GREEN + "Tournoi sauvegardé avec succès !" + Style.RESET_ALL)
+
+
+# def load_data_file_players():
+#     try:
+#         data = Path("data/players.json").read_text(encoding="utf-8")
+#         players_list = json.loads(data)
+#         joueurs = [Joueur.from_dict(player_data) for player_data in players_list]
+#         return joueurs
+#     except Exception as e:
+#         print(f"Error en load_data_file_players: {e}")
+#         return []
 
 
 # def save_data_file_tournement(tournois):
@@ -78,18 +70,18 @@ def save_data_file_tournement(new_tournoi: Tournoi):
 #     # print(Back.GREEN + "Le Tournoi a été sauvegardé avec succès")
 
 
-def load_data_file_tournament():
-    try:
-        data = Path("data/tournament.json").read_text(encoding="utf-8")
-        tournament_list = json.load(data)
-        # Convertir cada diccionario en un objeto Joueur
-        joueurs = [Tournoi.from_dict(player_data) for player_data in tournament_list]
-        print("jugadores load ", joueurs)
+# def load_data_file_tournament():
+#     try:
+#         data = Path("data/tournament.json").read_text(encoding="utf-8")
+#         tournament_list = json.load(data)
+#         # Convertir cada diccionario en un objeto Joueur
+#         joueurs = [Tournoi.from_dict(player_data) for player_data in tournament_list]
+#         print("jugadores load ", joueurs)
 
-        return joueurs
-    except Exception as e:
-        print(f"Error en load_data_file_players: {e}")
-        return []
+#         return joueurs
+#     except Exception as e:
+#         print(f"Error en load_data_file_players: {e}")
+#         return []
 
 
 # print("data antes de json : ",save_json)

@@ -2,6 +2,7 @@ from colorama import Fore, Back, Style
 from models.joueur import Joueur
 from questionary import select, checkbox
 import random
+from controllers.data_load_player import load_data_file_players
 
 
 class Match:
@@ -12,8 +13,6 @@ class Match:
         self.nombre_match = nombre_match
         self.joueur1: Joueur = joueur1
         self.joueur2: Joueur = joueur2
-        self.score_jouer1 = score_jouer1
-        self.score_jouer2 = score_jouer2
 
     def __str__(self):
         return (
@@ -58,6 +57,24 @@ class Match:
             "nombre_match": self.nombre_match,
             "joueur1": self.joueur1.to_dict_for_tournois(),
             "joueur2": self.joueur2.to_dict_for_tournois(),
-            # "score_jouer1": self.score_jouer1,
-            # "score_jouer2": self.score_jouer2,
         }
+
+    # @classmethod
+    # def from_dict(cls, data: dict):
+    #     return cls(
+    #         nombre_match=data["nombre_match"],
+    #         joueur1=Joueur.from_dict_for_tournois(data["joueur1"]),
+    #         joueur2=Joueur.from_dict_for_tournois(data["joueur2"]),
+    #     )
+    @classmethod
+    def from_dict(cls, data: dict):
+        joueurs_complets = load_data_file_players()
+        joueurs_dict = {joueur.id_national: joueur for joueur in joueurs_complets}
+
+        return cls(
+            nombre_match=data["nombre_match"],
+            joueur1=joueurs_dict[data["joueur1"]["id_national"]],
+            joueur2=joueurs_dict[data["joueur2"]["id_national"]],
+            score_jouer1=data.get("score_jouer1", 0),
+            score_jouer2=data.get("score_jouer2", 0),
+        )

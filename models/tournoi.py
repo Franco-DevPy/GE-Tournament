@@ -4,6 +4,7 @@ from models.match import Match
 from models.joueur import Joueur
 from models.tour import Tour
 from typing import List
+from controllers.data_load_player import load_data_file_players
 
 init(autoreset=True)
 
@@ -48,21 +49,6 @@ class Tournoi:
         for match in self.historial_match:
             print(Back.BLUE + match, "\n")
 
-    def to_dict(self):
-        return {
-            "nom_tournoi": self.nom_tournoi,
-            "location": self.location,
-            "date_debut": self.date_debut,
-            "date_fin": self.date_fin,
-            "description": self.description,
-            "nombre_tour": self.nombre_tour,
-            # "liste_joueur": [
-            #     joueur.to_dict_for_tournois() for joueur in self.liste_joueur
-            # ],
-            "liste_tour": [tour.to_dict() for tour in self.liste_tour],
-            "finit": self.finit,
-        }
-
     def generate_tour(self):
 
         numero_tour = len(self.liste_tour) + 1
@@ -96,8 +82,40 @@ class Tournoi:
         """Recuper tous les tours"""
         return self.liste_tour
 
+    def to_dict(self):
+        return {
+            "nom_tournoi": self.nom_tournoi,
+            "location": self.location,
+            "date_debut": self.date_debut,
+            "date_fin": self.date_fin,
+            "description": self.description,
+            "nombre_tour": self.nombre_tour,
+            "liste_joueur": [joueur.to_dict_for_list() for joueur in self.liste_joueur],
+            "liste_tour": [tour.to_dict() for tour in self.liste_tour],
+            "finit": self.finit,
+        }
+
     @classmethod
     def from_dict(cls, data):
+        # Cargar los datos completos de los jugadores
+        joueurs_complets = load_data_file_players()
+        joueurs_dict = {joueur.id_national: joueur for joueur in joueurs_complets}
+
+        print("joueurs_dict", joueurs_dict)
+
+        # Imprimir el contenido de 'data' para depuración
+        print(Back.BLUE + "data", data)
+        # Verificar si 'liste_joueur' existe en los datos
+        if "liste_joueur" not in data:
+            raise KeyError(
+                "La clé 'liste_joueur' est manquante dans les données du tournoi."
+            )
+        # Buscar los jugadores completos usando su id_national
+
+        liste_joueur = [
+            joueurs_dict[joueur["id_national"]] for joueur in data["liste_joueur"]
+        ]
+
         return cls(
             nom_tournoi=data["nom_tournoi"],
             location=data["location"],
@@ -105,10 +123,23 @@ class Tournoi:
             date_fin=data["date_fin"],
             description=data["description"],
             nombre_tour=data["nombre_tour"],
-            liste_joueur=[Joueur.from_dict(joueur) for joueur in data["liste_joueur"]],
-            liste_match=[Match.from_dict(match) for match in data["liste_match"]],
+            liste_joueur=liste_joueur,
+            liste_tour=[Tour.from_dict(tour) for tour in data["liste_tour"]],
             finit=data["finit"],
         )
+
+    # def from_dict(cls, data):
+    #     return cls(
+    #         nom_tournoi=data["nom_tournoi"],
+    #         location=data["location"],
+    #         date_debut=data["date_debut"],
+    #         date_fin=data["date_fin"],
+    #         description=data["description"],
+    #         nombre_tour=data["nombre_tour"],
+    #         # liste_joueur=[Joueur.from_dict(joueur) for joueur in data["liste_joueur"]],
+    #         liste_tour=[Tour.from_dict(tour) for tour in data["liste_tour"]],
+    #         finit=data["finit"],
+    #     )
 
     # def init_joueurs_tournoi(self) -> list:
     #     raise NotImplementedError

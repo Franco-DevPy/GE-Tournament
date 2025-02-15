@@ -54,13 +54,3 @@ def create_tournoi() -> Tournoi:
     save_data_file_tournement(new_tournoi)
 
     return new_tournoi
-
-
-def charger_tournois_en_cours():
-    print("Tournois en cours")
-    pass
-
-
-def charger_tournois_termines():
-    print("Tournois terminés")
-    pass

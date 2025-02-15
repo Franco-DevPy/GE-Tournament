@@ -5,6 +5,7 @@ import datetime
 import time
 from controllers.save_file import *
 from questionary import checkbox, select, Style as QuestionaryStyle
+from controllers.data_load_player import load_data_file_players
 
 
 regex_id = r"^[A-Z]{2}\d{5}$"
@@ -163,6 +164,11 @@ def select_joueur_tournoi() -> list[Joueur]:
             choices=choices,
             style=custom_style,
         ).ask()
+
+        if rpse_choix_joueur is None or len(rpse_choix_joueur) < 2:
+            print(
+                Back.RED + " -- ⚠ VOUS DEVEZ SELECTIONNER AU MOINS DEUX JOUEUR. ⚠ -- "
+            )
 
         if len(rpse_choix_joueur) % 2 != 0:
             print(Back.RED + " -- ⚠ LA QUANTITÉ DE JOUEURS DOIT ÊTRE PAIRE. ⚠ -- ")
