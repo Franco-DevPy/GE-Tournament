@@ -157,7 +157,6 @@ def menu_joueur():
 
             if respuesta2 == "Revenir au Menu":
                 resetApp()
-        # BaseExcept
         except Exception:
             print("Erreur de chargement de la liste des joueurs...")
             time.sleep(5)
@@ -248,6 +247,7 @@ def menu_charger_tournois():
 
     if response == "Charger Tournois Terminés":
         charger_tournois_termines()
+        menu_back()
 
     if response == "Revenir au Menu":
         resetApp()

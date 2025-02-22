@@ -67,14 +67,15 @@ class Match:
     #         joueur2=Joueur.from_dict_for_tournois(data["joueur2"]),
     #     )
     @classmethod
-    def from_dict(cls, data: dict):
-        joueurs_complets = load_data_file_players()
-        joueurs_dict = {joueur.id_national: joueur for joueur in joueurs_complets}
-
+    def from_dict(cls, data: dict, players_dict: dict[str, Joueur]):
+        joueur1 = players_dict[data["joueur1"]["id_national"]]
+        joueur2 = players_dict[data["joueur2"]["id_national"]]
+        joueur1.score_tournoi = data["joueur1"].get("score_tournoi", 0)
+        joueur2.score_tournoi = data["joueur2"].get("score_tournoi", 0)
         return cls(
-            nombre_match=data["nombre_match"],
-            joueur1=joueurs_dict[data["joueur1"]["id_national"]],
-            joueur2=joueurs_dict[data["joueur2"]["id_national"]],
-            score_jouer1=data.get("score_jouer1", 0),
-            score_jouer2=data.get("score_jouer2", 0),
+            nombre_match=data.get("nombre_match"),
+            joueur1=joueur1,
+            joueur2=joueur2,
+            score_jouer1=joueur1.score_tournoi,
+            score_jouer2=joueur2.score_tournoi,
         )

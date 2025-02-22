@@ -38,7 +38,14 @@ class Joueur:
         )
 
     def __repr__(self):
-        return f"Joueur({self.nom}, {self.prenom}, ID: {self.id_national}), Score Total: {self.score_tournoi}, "
+        return (
+            f"{Back.BLACK + Fore.WHITE} - ♛ -{self.nom} {self.prenom}- ♚ -  {Style.RESET_ALL}\n"
+            f"{Fore.GREEN}Id national :{Style.RESET_ALL} {self.id_national}\n"
+            f"{Fore.GREEN}Match gagné :{Style.RESET_ALL} {self.match_gagne}\n"
+            f"{Fore.GREEN}Match perdu :{Style.RESET_ALL} {self.match_perdu}\n"
+            f"{Fore.GREEN}Match nul :{Style.RESET_ALL} {self.matches_nulls}\n"
+            f"{Fore.GREEN}Score tournoi :{Style.RESET_ALL} {self.score_tournoi}\n"
+        )
 
     # RECUPERAR EL ID PARA LUEGO JUNTARLO CON TODA LA DATA DEL JUGADORs
     def get_joueur_by_id(self, id_national):
@@ -102,7 +109,9 @@ class Joueur:
             id_national=data["id_national"],
             match_gagne=data.get("match_gagne", 0),
             match_perdu=data.get("match_perdu", 0),
+            matches_nulls=data.get("matches_nulls", 0),
             score_tournoi=data.get("score_tournoi", 0),
+            joueurs_rencontres=data.get("joueurs_rencontres", {}),
         )
 
     @classmethod

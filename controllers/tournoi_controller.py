@@ -1,4 +1,5 @@
 from models.tournoi import Tournoi
+from models.tour import Tour
 from controllers.save_file import save_data_file_tournement
 from controllers.joueur_controller import select_joueur_tournoi, get_all_players_id_dict
 from colorama import Fore, Back, Style, init
@@ -58,67 +59,48 @@ def create_tournoi() -> Tournoi:
 
 
 def charger_tournois_termines():
-    try:
-        tournois_selectione = select_tournoi_finit()
-        tournois_selectione.voir_classement()
-    except Exception as e:
-        print(f"Error en charger_tournois_termines: {e}")
+    tournois_selectione = select_tournoi_finit()
+    print(" tournois_selectione : ", tournois_selectione)
+    tournois_selectione.voir_classement()
 
 
-def load_and_reconstruct_tournaments() -> List[Tournoi]:
-    try:
-        # Cargar datos de torneos desde el archivo JSON
+def load_and_reconstruct_tournaments_termine():
+    data = Path("data/tournament.json").read_text(encoding="utf-8")
+    tournaments_list = json.loads(data)
 
-        data = Path("data/tournament.json").read_text(encoding="utf-8")
-        tournaments_list = json.loads(data)
+    players_dict = get_all_players_id_dict()
 
-        # Obtener el diccionario de jugadores
-        players_dict = get_all_players_id_dict()
+    reconstructed_tournaments = []
 
-        # Lista para almacenar los torneos reconstruidos
-        reconstructed_tournaments = []
+    for tournament_data in tournaments_list:
+        if tournament_data.get("date_fin") is not None:
+            tournament = Tournoi(
+                nom_tournoi=tournament_data.get("nom_tournoi", ""),
+                location=tournament_data.get("location", ""),
+                date_debut=tournament_data.get("date_debut"),
+                date_fin=tournament_data.get("date_fin"),
+                description=tournament_data.get("description", ""),
+                nombre_tour=tournament_data.get("nombre_tour", 4),
+                liste_joueur=[],
+                liste_tour=[
+                    Tour.from_dict(tour_data, players_dict, generate_matches=False)
+                    for tour_data in tournament_data.get("liste_tour", [])
+                ],
+            )
 
-        for tournament_data in tournaments_list:
-            # Crear una instancia de Tournoi desde el diccionario
-            tournament = Tournoi.from_dict(tournament_data)
-
-            # Reconstruir la lista de jugadores del torneo
             tournament.liste_joueur = [
-                players_dict[joueur_id] for joueur_id in tournament.liste_joueur_ids
+                players_dict[joueur_data["id_national"]]
+                for joueur_data in tournament_data.get("liste_joueur", [])
             ]
 
-            # Añadir el torneo reconstruido a la lista
             reconstructed_tournaments.append(tournament)
 
-        return reconstructed_tournaments
-
-    except Exception as e:
-        print(f"Error en load_and_reconstruct_tournaments: {e}")
-        return []
-
-
-# def charger_tournois_termines():
-#     print(Back.BLUE + "-----Liste des tournois terminés-----")
-#     liste_tournois =
-#     print("Liste des tournois terminés : ")
-#     print(liste_tournois)
-#     print("\n")
-#     print("Liste des tournois terminés ITERADO : ")
-#     nt = 0
-#     for tournoi in liste_tournois:
-#         print(f"Tournoi : {nt} ")
-#         print(tournoi)
-#         nt += 1
-
-#     pass
+    return reconstructed_tournaments
 
 
 def select_tournoi_finit() -> List[Tournoi]:
+    liste_tournois = load_and_reconstruct_tournaments_termine()
 
-    liste_tournois = load_and_reconstruct_tournaments()
-
-    print("liste_tournois : ", liste_tournois)
-    print("antess de la boucle")
     choices = []
 
     for tournoi in liste_tournois:

@@ -35,12 +35,13 @@ class Tournoi:
 
     def __str__(self):
         return (
-            f"Le Tournois {self.nom_tournoi}\n"
-            f"Adrresse : {self.location}\n"
-            f"Date debout {self.date_debut}\n"
-            f"Description {self.description}\n"
-            f"Liste de Tour {self.nombre_tour}\n"
-            f"Joueurs qui participent : {[joueur.nom for joueur in self.liste_joueur]}"  # Mostrar solo los nombres de los jugadores
+            "\n"
+            "\n"
+            f"{Fore.CYAN} ---  Le Tournois {self.nom_tournoi}\n"
+            f"{Fore.CYAN} ---  Adrresse : {self.location}\n"
+            f"{Fore.CYAN} ---  Date debout {self.date_debut}\n"
+            f"{Fore.CYAN} ---  Description {self.description}\n"
+            f"{Fore.CYAN} ---  Liste de Tour {self.nombre_tour}\n"
         )
 
     def voir_histoiral_match(self):
@@ -57,8 +58,8 @@ class Tournoi:
         self.liste_tour.append(nouveau_tour)
 
     def voir_classement(self):
-
-        print(" -- Classement -- ")
+        print(Fore.CYAN + " --- Classement : --- ")
+        print("\n")
 
         order_joueur = sorted(
             self.liste_joueur, key=lambda joueur: joueur.score_tournoi, reverse=True
@@ -75,7 +76,7 @@ class Tournoi:
         return self.liste_tour
 
     def get_time(self):
-        return datetime.datetime.now().strptime("%d/%m/%Y %H:%M")
+        return datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
 
     def to_dict(self):
         return {

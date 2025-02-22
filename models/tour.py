@@ -7,15 +7,18 @@ from models.joueur import Joueur
 
 class Tour:
 
-    def __init__(self, number_tour, tournoi=None):
+    def __init__(
+        self, number_tour, liste_match=None, tournoi=None, generate_matches=True
+    ):
         self.number_tour = number_tour
-        self.liste_joueur: List[Joueur] = tournoi.liste_joueur
-        self.liste_match: List[Match] = []
+        self.liste_match = liste_match if liste_match is not None else []
+        self.liste_joueur = tournoi.liste_joueur if tournoi else []
         self.tournoi = tournoi
-        if number_tour == 1:
-            self.generate_matches_first_tour()
-        else:
-            self.generate_matches_hazard()
+        if generate_matches:
+            if number_tour == 1:
+                self.generate_matches_first_tour()
+            else:
+                self.generate_matches_hazard()
 
     def generate_matches_first_tour(self) -> list:
 
@@ -167,8 +170,14 @@ class Tour:
         }
 
     @classmethod
-    def from_dict(cls, data: dict):
+    def from_dict(
+        cls, data: dict, players_dict: dict[str, Joueur], generate_matches=True
+    ):
         return cls(
-            number_tour=data["nom_tour"],
-            liste_match=[Match.from_dict(match) for match in data["liste_match"]],
+            number_tour=data.get("nom_tour"),
+            liste_match=[
+                Match.from_dict(match_data, players_dict)
+                for match_data in data.get("liste_match", [])
+            ],
+            generate_matches=generate_matches,
         )
