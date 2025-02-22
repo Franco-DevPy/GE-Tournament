@@ -8,7 +8,7 @@ from questionary import select, Style as QuestionaryStyle
 from typing import List
 from pathlib import Path
 import json
-from questionary import checkbox
+from controllers.tour_controller import continuer_tour
 
 
 # from save_file import save_data_file_tournement
@@ -59,47 +59,82 @@ def create_tournoi() -> Tournoi:
 
 
 def charger_tournois_termines():
-    tournois_selectione = select_tournoi_finit()
+    tournois_selectione = select_tournoi_finit(finit=True)
     print(" tournois_selectione : ", tournois_selectione)
     tournois_selectione.voir_classement()
 
 
-def load_and_reconstruct_tournaments_termine():
+def charger_tournois_en_cours():
+
+    tournois_selectione = select_tournoi_finit(finit=False)
+    print(" tournois_selectione : ", tournois_selectione)
+    print("ici")
+    continuer_tour(tournois_selectione)
+
+
+def load_and_reconstruct_tournaments(finit: bool):
     data = Path("data/tournament.json").read_text(encoding="utf-8")
     tournaments_list = json.loads(data)
 
     players_dict = get_all_players_id_dict()
 
     reconstructed_tournaments = []
+    if finit == True:
+        for tournament_data in tournaments_list:
+            if tournament_data.get("date_fin") is not None:
+                tournament = Tournoi(
+                    nom_tournoi=tournament_data.get("nom_tournoi", ""),
+                    location=tournament_data.get("location", ""),
+                    date_debut=tournament_data.get("date_debut"),
+                    date_fin=tournament_data.get("date_fin"),
+                    description=tournament_data.get("description", ""),
+                    nombre_tour=tournament_data.get("nombre_tour", 4),
+                    liste_joueur=[],
+                    liste_tour=[
+                        Tour.from_dict(tour_data, players_dict, generate_matches=False)
+                        for tour_data in tournament_data.get("liste_tour", [])
+                    ],
+                )
 
-    for tournament_data in tournaments_list:
-        if tournament_data.get("date_fin") is not None:
-            tournament = Tournoi(
-                nom_tournoi=tournament_data.get("nom_tournoi", ""),
-                location=tournament_data.get("location", ""),
-                date_debut=tournament_data.get("date_debut"),
-                date_fin=tournament_data.get("date_fin"),
-                description=tournament_data.get("description", ""),
-                nombre_tour=tournament_data.get("nombre_tour", 4),
-                liste_joueur=[],
-                liste_tour=[
-                    Tour.from_dict(tour_data, players_dict, generate_matches=False)
-                    for tour_data in tournament_data.get("liste_tour", [])
-                ],
-            )
+                tournament.liste_joueur = [
+                    players_dict[joueur_data["id_national"]]
+                    for joueur_data in tournament_data.get("liste_joueur", [])
+                ]
 
-            tournament.liste_joueur = [
-                players_dict[joueur_data["id_national"]]
-                for joueur_data in tournament_data.get("liste_joueur", [])
-            ]
+                reconstructed_tournaments.append(tournament)
+    if finit == False:
+        for tournament_data in tournaments_list:
+            if tournament_data.get("date_fin") is None:
+                tournament = Tournoi(
+                    nom_tournoi=tournament_data.get("nom_tournoi", ""),
+                    location=tournament_data.get("location", ""),
+                    date_debut=tournament_data.get("date_debut"),
+                    date_fin=tournament_data.get("date_fin"),
+                    description=tournament_data.get("description", ""),
+                    nombre_tour=tournament_data.get("nombre_tour", 4),
+                    liste_joueur=[],
+                    liste_tour=[
+                        Tour.from_dict(tour_data, players_dict, generate_matches=False)
+                        for tour_data in tournament_data.get("liste_tour", [])
+                    ],
+                )
 
-            reconstructed_tournaments.append(tournament)
+                tournament.liste_joueur = [
+                    players_dict[joueur_data["id_national"]]
+                    for joueur_data in tournament_data.get("liste_joueur", [])
+                ]
+
+                reconstructed_tournaments.append(tournament)
 
     return reconstructed_tournaments
 
 
-def select_tournoi_finit() -> List[Tournoi]:
-    liste_tournois = load_and_reconstruct_tournaments_termine()
+def select_tournoi_finit(finit: bool) -> List[Tournoi]:
+
+    if finit == True:
+        liste_tournois = load_and_reconstruct_tournaments(finit=True)
+    else:
+        liste_tournois = load_and_reconstruct_tournaments(finit=False)
 
     choices = []
 

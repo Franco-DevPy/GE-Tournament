@@ -59,7 +59,7 @@ def start_app():
 
         premier_tour = new_tournoi.liste_tour[0]
 
-        menu_start_tournois(premier_tour)  # llama a start_match
+        menu_start_tournois(premier_tour)
 
         print(len(new_tournoi.liste_tour) < new_tournoi.nombre_tour)
         while len(new_tournoi.liste_tour) < new_tournoi.nombre_tour:
@@ -241,9 +241,8 @@ def menu_charger_tournois():
     ).ask()
 
     if response == "Charger Tournois en Cours":
-        # charger_tournois_en_cours()
-        # afficher_tournois()
-        resetApp()
+        charger_tournois_en_cours()
+        menu_back()
 
     if response == "Charger Tournois Terminés":
         charger_tournois_termines()
@@ -351,26 +350,3 @@ def exit_app():
     )
     exit()
     return
-
-
-def continuer_tournoi(tournoi_dict):
-    print(f"\n⚡ Reprise du tournoi {tournoi_dict['nom_tournoi']}")
-
-    tournoi = Tournoi.from_dict(tournoi_dict)
-
-    while len(tournoi.liste_tour) < tournoi.nombre_tour:
-        print("------------------------------------------------- CONTINUATION")
-
-        tournoi.generate_tour()
-        tours_suivante = tournoi.liste_tour[-1]
-        menu_match_suivant()
-        start_match(tours_suivante)
-
-        save_data_file_tournement(tournoi)
-
-        if len(tournoi.liste_tour) < tournoi.nombre_tour:
-            menu_tour_suivant()
-
-    print("\n🏆 Tournoi terminé!")
-    tournoi.finit = True
-    save_data_file_tournement(tournoi)
