@@ -1,8 +1,5 @@
 from colorama import Fore, Back, Style
 from models.joueur import Joueur
-from questionary import select, checkbox
-import random
-from controllers.data_load_player import load_data_file_players
 
 
 class Match:
@@ -15,10 +12,7 @@ class Match:
         self.joueur2: Joueur = joueur2
 
     def __str__(self):
-        return (
-            # f" Match Nro : {self.nombre_match} \n "
-            f"{Back.CYAN + Fore.BLACK}♜  {self.joueur1.nom + 'ID :' + self.joueur1.id_national} ♜  {Style.RESET_ALL}  VS  {Back.CYAN + Fore.BLACK}♜  {self.joueur2.nom + 'ID :' + self.joueur2.id_national} ♜ {Style.RESET_ALL} \n "
-        )
+        return f"{Back.CYAN + Fore.BLACK}♜  {self.joueur1.nom + 'ID :' + self.joueur1.id_national} ♜  {Style.RESET_ALL}  VS  {Back.CYAN + Fore.BLACK}♜  {self.joueur2.nom + 'ID :' + self.joueur2.id_national} ♜ {Style.RESET_ALL} \n "
 
     def definir_resultat(self, resultat):
         """Definir le résultat du match"""
@@ -59,13 +53,6 @@ class Match:
             "joueur2": self.joueur2.to_dict_for_tournois(),
         }
 
-    # @classmethod
-    # def from_dict(cls, data: dict):
-    #     return cls(
-    #         nombre_match=data["nombre_match"],
-    #         joueur1=Joueur.from_dict_for_tournois(data["joueur1"]),
-    #         joueur2=Joueur.from_dict_for_tournois(data["joueur2"]),
-    #     )
     @classmethod
     def from_dict(cls, data: dict, players_dict: dict[str, Joueur]):
         joueur1 = players_dict[data["joueur1"]["id_national"]]

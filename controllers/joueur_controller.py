@@ -2,28 +2,27 @@ from models.joueur import Joueur
 from colorama import Fore, Back, Style, init
 import re
 import datetime
-import time
-from controllers.save_file import *
+
+from controllers.save_file import save_data_file_players
 from questionary import checkbox, select, Style as QuestionaryStyle
 from controllers.data_load_player import load_data_file_players
 
 
 regex_id = r"^[A-Z]{2}\d{5}$"
-# regex_date =
 
 
 custom_style = QuestionaryStyle(
     [
-        ("qmark", "fg:#E91E63 bold"),  # Color del símbolo de pregunta
-        ("question", "bold"),  # Estilo del mensaje de pregunta
-        ("pointer", "fg:#1815d1 bold"),  # Color del puntero en las opciones
-        ("highlighted", "fg:#03A9F4"),  # Color de la opción resaltada
-        ("selected", "fg:#0D47A1"),  # Color de la opción seleccionada
-        ("answer", "fg:#2196f3 bold"),  # Color de la respuesta
-        ("text", "bold"),  # Estilo del texto (por defecto)
-        ("separator", "fg:#CC5454"),  # Estilo del separador
-        ("instruction", "#0D47A1"),  # Estilo de las instrucciones (si las hay)
-        ("disabled", "fg:#858585 italic"),  # Estilo de opciones deshabilitadas
+        ("qmark", "fg:#E91E63 bold"),
+        ("question", "bold"),
+        ("pointer", "fg:#1815d1 bold"),
+        ("highlighted", "fg:#03A9F4"),
+        ("selected", "fg:#0D47A1"),
+        ("answer", "fg:#2196f3 bold"),
+        ("text", "bold"),
+        ("separator", "fg:#CC5454"),
+        ("instruction", "#0D47A1"),
+        ("disabled", "fg:#858585 italic"),
     ]
 )
 
@@ -94,7 +93,6 @@ def select_joueur_tournoi() -> list[Joueur]:
     liste_select_joueur = get_liste_joueur()
 
     choices = []
-    ## ESTO DEVUELVE UNA LISTA DE OBJETOS GRACIAS A VALUE Y NAME SOLO ES PARA VISUALIZAR LA CLG, PORUQE ?
     for joueur in liste_select_joueur:
         choices.append(
             {

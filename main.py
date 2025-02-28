@@ -1,5 +1,4 @@
-from controllers.joueur_controller import *
-from view.MenuSelect import *
+from view.MenuSelect import start_app
 
 
 def main():

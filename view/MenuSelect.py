@@ -1,8 +1,16 @@
 import colorama
 from colorama import Fore, Back, Style
 from questionary import select, Style as QuestionaryStyle
-from controllers.joueur_controller import *
-from controllers.tournoi_controller import *
+from controllers.joueur_controller import (
+    ajouter_joueur,
+    voir_liste_joueur,
+    get_liste_joueur,
+)
+from controllers.tournoi_controller import (
+    create_tournoi,
+    charger_tournois_en_cours,
+    charger_tournois_termines,
+)
 from controllers.match_controller import *
 import time
 import os
@@ -125,7 +133,7 @@ def menu_joueur():
 
     if respuesta == "Ajouter un Joueur":
         continuer = True
-        while continuer == True:
+        while continuer:
             print(Back.BLUE + "-----Ajouter un Joueur-----")
             ajouter_joueur()
             reponse = select(

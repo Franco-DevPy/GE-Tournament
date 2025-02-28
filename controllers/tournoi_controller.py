@@ -2,8 +2,7 @@ from models.tournoi import Tournoi
 from models.tour import Tour
 from controllers.save_file import save_data_file_tournement
 from controllers.joueur_controller import select_joueur_tournoi, get_all_players_id_dict
-from colorama import Fore, Back, Style, init
-from datetime import datetime as dt
+from colorama import Back, Style, init
 from questionary import select, Style as QuestionaryStyle
 from typing import List
 from pathlib import Path
@@ -228,7 +227,7 @@ def resetApp():
     print("Loading...")
     time.sleep(0.5)
     clear_console()
-    exit_app()
+    exit()
 
 
 def clear_console():

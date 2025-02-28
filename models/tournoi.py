@@ -1,10 +1,7 @@
-import random
 from colorama import Fore, Back, init, Style
-from models.match import Match
 from models.joueur import Joueur
 from models.tour import Tour
 from typing import List
-from controllers.data_load_player import load_data_file_players
 import datetime
 
 init(autoreset=True)
