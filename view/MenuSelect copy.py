@@ -91,15 +91,13 @@ def start_app():
     if respuesta == "Gestion du Joueur":
         print("Gestion du joueur....")
         menu_joueur()
-        return
 
     if respuesta == "Gestion des Tournois":
         menu_charger_tournois()
         print("Dernier tournois....")
-        return
 
     if respuesta == "Exit":
-        return exit_app()
+        exit_app()
 
 
 def menu_joueur():
@@ -351,4 +349,33 @@ def exit_app():
 """
     )
     exit()
+    return
+
+
+def continuer_tour(tournoi_selectione):
+    while len(tournoi_selectione.liste_tour) < tournoi_selectione.nombre_tour:
+        if len(tournoi_selectione.liste_tour) < tournoi_selectione.nombre_tour:
+            tournoi_selectione.generate_tour()
+        menu_match_suivant()
+        tours_suivante = tournoi_selectione.liste_tour[-1]
+        start_match(tours_suivante)
+        save_data_file_tournement(tournoi_selectione)
+        if len(tournoi_selectione.liste_tour) < tournoi_selectione.nombre_tour:
+            menu_tour_suivant()
+        pass
+
+    print(
+        Back.BLACK
+        + """
+        ___ ___ _  _   ___  _   _   _____ ___  _   _ ___ _  _  ___ ___
+        | __|_ _| \| | |   \| | | | |_   _/ _ \| | | | _ \ \| |/ _ \_ _|
+        | _| | || .` | | |) | |_| |   | || (_) | |_| |   / .` | (_) | |
+        |_| |___|_|\_| |___/ \___/    |_| \___/ \___/|_|_\_|\_|\___/___|
+                    """
+        + Style.RESET_ALL
+        + "\n"
+    )
+    tournoi_selectione.date_fin = tournoi_selectione.get_time()
+    save_data_file_tournement(tournoi_selectione)
+    menu_fin_tournois(tournoi_selectione)
     return
