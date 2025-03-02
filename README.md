@@ -21,7 +21,7 @@ Installation avec un environnement virtuel
 
 Il est recommandé d'utiliser un environnement virtuel pour installer les dépendances du projet.
 
-Windows
+# Windows
 
 # Création de l'environnement virtuel
    ```bash
@@ -35,7 +35,7 @@ venv\Scripts\activate
    ```bash
 pip install -r requirements.txt
    ```
-Linux & macOS
+# Linux & macOS
 
 # Création de l'environnement virtuel
 
