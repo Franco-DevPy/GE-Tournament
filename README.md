@@ -24,17 +24,17 @@ Il est recommandé d'utiliser un environnement virtuel pour installer les dépen
 Windows
 
 # Création de l'environnement virtuel
-
+   ```bash
 python -m venv venv
-
+   ```
 # Activation de l'environnement virtuel
-
+   ```bash
 venv\Scripts\activate
-
+   ```
 # Installation des dépendances
-
+   ```bash
 pip install -r requirements.txt
-
+   ```
 Linux & macOS
 
 # Création de l'environnement virtuel
@@ -42,17 +42,17 @@ Linux & macOS
 python3 -m venv venv
 
 # Activation de l'environnement virtuel
-
+   ```bash
 source venv/bin/activate
-
+   ```
 # Installation des dépendances
-
+   ```bash
 pip install -r requirements.txt
-
+   ```
 Exécution de l'application
 
 Après l'installation, vous pouvez lancer l'application en exécutant la commande suivante :
-
+   ```
 python main.py
-
+   ```
 Cela ouvrira l'interface console de l'application où vous pourrez créer un tournoi, ajouter des joueurs et gérer les matchs.
