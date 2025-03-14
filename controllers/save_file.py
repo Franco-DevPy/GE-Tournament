@@ -1,8 +1,6 @@
 import json
 from pathlib import Path
-import os
 from colorama import Fore, Back, Style
-from models.joueur import Joueur
 from models.tournoi import Tournoi
 
 

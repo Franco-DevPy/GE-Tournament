@@ -12,7 +12,12 @@ class Match:
         self.joueur2: Joueur = joueur2
 
     def __str__(self):
-        return f"{Back.CYAN + Fore.BLACK}♜  {self.joueur1.nom + 'ID :' + self.joueur1.id_national} ♜  {Style.RESET_ALL}  VS  {Back.CYAN + Fore.BLACK}♜  {self.joueur2.nom + 'ID :' + self.joueur2.id_national} ♜ {Style.RESET_ALL} \n "
+        return (
+            f"{Back.CYAN + Fore.BLACK}♜  {self.joueur1.nom} ID : {self.joueur1.id_national} ♜ "
+            f"{Style.RESET_ALL}  VS  "
+            f"{Back.CYAN + Fore.BLACK}♜  {self.joueur2.nom} ID : {self.joueur2.id_national} ♜ "
+            f"{Style.RESET_ALL} \n"
+        )
 
     def definir_resultat(self, resultat):
         """Definir le résultat du match"""

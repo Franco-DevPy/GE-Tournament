@@ -19,16 +19,16 @@ init(autoreset=True)
 
 custom_style = QuestionaryStyle(
     [
-        ("qmark", "fg:#E91E63 bold"),  # Color del símbolo de pregunta
-        ("question", "bold"),  # Estilo del mensaje de pregunta
-        ("pointer", "fg:#1815d1 bold"),  # Color del puntero en las opciones
-        ("highlighted", "fg:#03A9F4"),  # Color de la opción resaltada
-        ("selected", "fg:#0D47A1"),  # Color de la opción seleccionada
-        ("answer", "fg:#2196f3 bold"),  # Color de la respuesta
-        ("text", "bold"),  # Estilo del texto (por defecto)
-        ("separator", "fg:#CC5454"),  # Estilo del separador
-        ("instruction", "#0D47A1"),  # Estilo de las instrucciones (si las hay)
-        ("disabled", "fg:#858585 italic"),  # Estilo de opciones deshabilitadas
+        ("qmark", "fg:#E91E63 bold"),
+        ("question", "bold"),
+        ("pointer", "fg:#1815d1 bold"),
+        ("highlighted", "fg:#03A9F4"),
+        ("selected", "fg:#0D47A1"),
+        ("answer", "fg:#2196f3 bold"),
+        ("text", "bold"),
+        ("separator", "fg:#CC5454"),
+        ("instruction", "#0D47A1"),
+        ("disabled", "fg:#858585 italic"),
     ]
 )
 
@@ -36,10 +36,8 @@ custom_style = QuestionaryStyle(
 def create_tournoi() -> Tournoi:
     print(Back.BLUE + "-----Creation du Tournoi-----")
 
-    # reponse_dernier_tournoi = get_dernier_tournois()
     nom_tournoi = input("Entrez le NOM du Tournoi : ")
     lieu_tournoi = input("Entrez le LIEU du Tournoi : ")
-    # date_debut = dt.now().strftime("%Y-%m-%d %H:%M")
 
     description_tournoi = input("Entrez une description du Tournoi : ")
     joueurs_selectionnes = select_joueur_tournoi()
@@ -74,7 +72,7 @@ def charger_tournois_en_cours():
 
 def select_tournoi_finit(finit: bool) -> List[Tournoi]:
 
-    if finit == True:
+    if finit:
         liste_tournois = load_and_reconstruct_tournaments(finit=True)
     else:
         liste_tournois = load_and_reconstruct_tournaments(finit=False)
@@ -109,7 +107,7 @@ def load_and_reconstruct_tournaments(finit: bool):
     players_dict = get_all_players_id_dict()
 
     reconstructed_tournaments = []
-    if finit == True:
+    if finit:
         for tournament_data in tournaments_list:
             if tournament_data.get("date_fin") is not None:
                 tournament = Tournoi(
@@ -132,7 +130,7 @@ def load_and_reconstruct_tournaments(finit: bool):
                 ]
 
                 reconstructed_tournaments.append(tournament)
-    if finit == False:
+    if not finit:
         for tournament_data in tournaments_list:
             if tournament_data.get("date_fin") is None:
                 tournament = Tournoi(

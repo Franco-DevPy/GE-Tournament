@@ -1,0 +1,6 @@
+[flake8]
+exclude = venv
+max-line-length = 119
+
+# Ignore print / 
+ignore = W605, W291, W503

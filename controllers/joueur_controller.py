@@ -4,7 +4,7 @@ import re
 import datetime
 
 from controllers.save_file import save_data_file_players
-from questionary import checkbox, select, Style as QuestionaryStyle
+from questionary import checkbox, Style as QuestionaryStyle
 from controllers.data_load_player import load_data_file_players
 
 

@@ -16,7 +16,6 @@ class Tournoi:
         date_debut=None,
         date_fin=None,
         description="",
-        # numero minimo de tour
         nombre_tour=4,
         liste_joueur: List[Joueur] = [],
         liste_tour: List[Tour] = [],
@@ -64,7 +63,7 @@ class Tournoi:
 
         for joueur in order_joueur:
             print(
-                f"{Back.BLACK + Fore.WHITE} -♛ -{joueur.nom} {joueur.prenom} : {joueur.id_national} ♚- {Style.RESET_ALL}\n"
+                f"{Back.BLACK + Fore.WHITE} -♛ -{joueur.nom} {joueur.prenom} : {joueur.id_national} ♚- \n"
                 f"{Fore.GREEN} Score Total-Tournoi :{Style.RESET_ALL} {joueur.score_tournoi}\n"
             )
 
@@ -89,7 +88,6 @@ class Tournoi:
 
     @classmethod
     def from_dict(cls, data: dict):
-        # Asegúrate de que todos los campos necesarios están presentes
         return cls(
             nom_tournoi=data.get("nom_tournoi", ""),
             location=data.get("location", ""),
@@ -105,56 +103,3 @@ class Tournoi:
                 Tour.from_dict(tour_data) for tour_data in data.get("liste_tour", [])
             ],
         )
-
-    # def init_joueurs_tournoi(self) -> list:
-    #     raise NotImplementedError
-    #     return []
-
-    # def init_tours(self, liste_joueur: list) -> list:
-
-    #     joueurs_copy = liste_joueur[:]
-    #     random.shuffle(joueurs_copy)
-    #     print("Tour Generé : ", "\n")
-
-    #     liste_paire = []
-    #     nombre_match = 0
-    #     liste_match = []
-
-    #     while len(joueurs_copy) >= 2:
-    #         joueur1 = joueurs_copy.pop(0)
-    #         joueur2 = joueurs_copy.pop(0)
-    #         nombre_match += 1
-
-    #         new_match = Match(
-    #             nombre_match=nombre_match,
-    #             joueur1=joueur1,
-    #             joueur2=joueur2,
-    #             score_jouer1=0,
-    #             score_jouer2=0,
-    #         )
-
-    #         print(
-    #             f"{Back.BLUE + Fore.BLACK}♜  {joueur1.nom + ' - ID :' + joueur1.id_national} ♜  {Style.RESET_ALL}  VS  {Back.BLUE + Fore.BLACK}♜  {joueur2.nom + ' - ID :' + joueur2.id_national} ♜ {Style.RESET_ALL} \n "
-    #         )
-
-    #         paire_joueur = [joueur1, joueur2]
-    #         liste_paire.append(paire_joueur)
-    #         liste_match.append(new_match)
-
-    #         joueur1.save_joueur_match(joueur2.id_national)
-    #         joueur2.save_joueur_match(joueur1.id_national)
-
-    #     self.nombre_tour = len(liste_paire)
-    #     self.liste_joueur = liste_joueur
-    #     self.liste_match = liste_match
-
-    #     # for match in list_match:
-    #     #     print("Liste de match creados :", match)
-
-    #     # print("liste paire", liste_paire)
-    #     return liste_match
-
-    # def save_historial_match(self, match):
-    #     self.historial_match.append(match)
-
-    # def load_historial_match(self, match):

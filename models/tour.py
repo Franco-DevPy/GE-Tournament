@@ -1,4 +1,4 @@
-from colorama import Back, Fore, Style, init
+from colorama import Back, Fore, Style
 import random
 from typing import List
 from models.match import Match
@@ -48,8 +48,12 @@ class Tour:
             joueur2.jouers_rencontres[joueur1.id_national].append(self.number_tour)
 
             new_liste_match.append(new_match)
+
             print(
-                f"{Back.BLUE + Fore.BLACK}♜  {joueur1.nom + ' - ID :' + joueur1.id_national} ♜  {Style.RESET_ALL}  VS  {Back.BLUE + Fore.BLACK}♜  {joueur2.nom + ' - ID :' + joueur2.id_national} ♜ {Style.RESET_ALL} \n "
+                f"{Back.BLUE + Fore.BLACK}♜  {joueur1.nom} - ID : {joueur1.id_national} ♜ "
+                f"{Style.RESET_ALL}  VS  "
+                f"{Back.BLUE + Fore.BLACK}♜  {joueur2.nom} - ID : {joueur2.id_national} ♜ "
+                f"{Style.RESET_ALL} \n"
             )
             nombre_match += 1
 
@@ -165,7 +169,6 @@ class Tour:
     def to_dict(self):
         return {
             "nom_tour": self.number_tour,
-            # "liste_joueur": [joueur.to_dict() for joueur in self.liste_joueur],
             "liste_match": [match.to_dict() for match in self.liste_match],
         }
 

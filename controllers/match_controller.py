@@ -1,7 +1,6 @@
 from models.match import Match
-from models.joueur import Joueur
-from questionary import select, checkbox
-from colorama import Fore, Back, Style
+from questionary import select
+from colorama import Back, Style
 from models.tour import Tour
 from typing import List
 

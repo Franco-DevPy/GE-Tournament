@@ -5,35 +5,35 @@ from controllers.joueur_controller import (
     ajouter_joueur,
     voir_liste_joueur,
     get_liste_joueur,
+    load_data_file_players,
 )
 from controllers.tournoi_controller import (
     create_tournoi,
     charger_tournois_en_cours,
     charger_tournois_termines,
 )
-from controllers.match_controller import *
+from controllers.match_controller import start_match
 import time
 import os
 import platform
-from controllers.load_file import *
-from controllers.save_file import *
-from models.match import *
-from models.tour import *
+from controllers.save_file import save_data_file_tournement
+from models.tour import Tour
+from models.tournoi import Tournoi
 
 
 colorama.init(autoreset=True)
 custom_style = QuestionaryStyle(
     [
-        ("qmark", "fg:#E91E63 bold"),  # Color del símbolo de pregunta
-        ("question", "bold"),  # Estilo del mensaje de pregunta
-        ("pointer", "fg:#1815d1 bold"),  # Color del puntero en las opciones
-        ("highlighted", "fg:#03A9F4"),  # Color de la opción resaltada
-        ("selected", "fg:#0D47A1"),  # Color de la opción seleccionada
-        ("answer", "fg:#2196f3 bold"),  # Color de la respuesta
-        ("text", "bold"),  # Estilo del texto (por defecto)
-        ("separator", "fg:#CC5454"),  # Estilo del separador
-        ("instruction", "#0D47A1"),  # Estilo de las instrucciones (si las hay)
-        ("disabled", "fg:#858585 italic"),  # Estilo de opciones deshabilitadas
+        ("qmark", "fg:#E91E63 bold"),
+        ("question", "bold"),
+        ("pointer", "fg:#1815d1 bold"),
+        ("highlighted", "fg:#03A9F4"),
+        ("selected", "fg:#0D47A1"),
+        ("answer", "fg:#2196f3 bold"),
+        ("text", "bold"),
+        ("separator", "fg:#CC5454"),
+        ("instruction", "#0D47A1"),
+        ("disabled", "fg:#858585 italic"),
     ]
 )
 
@@ -291,22 +291,6 @@ def menu_match_suivant():
 
     if response == "Jouer Tour":
         pass
-
-    if response == "Revenir au Menu":
-        resetApp()
-
-
-def menu_back():
-
-    select_sub_menu = [
-        "Revenir au Menu",
-    ]
-
-    response = select(
-        message="Choisisez une option : ",
-        choices=select_sub_menu,
-        style=custom_style,
-    ).ask()
 
     if response == "Revenir au Menu":
         resetApp()
