@@ -1,20 +1,10 @@
-# Ignorar archivos .log
 *.log
-
-# Ignorar archivos compilados de Python
 *.pyc
 __pycache__/
-# Ignorar archivos de configuración de tu entorno
 .venv
 venv/
-
-
-
-# Ignorar la carpeta 'data' dentro de 'scraping'
 data/
-*.json
-
-
+*.jso
 flake8_rapport/
 
 
