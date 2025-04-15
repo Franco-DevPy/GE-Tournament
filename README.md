@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+HEAD
 Gestionnaire de Tournois d'Échecs
 
 Description
