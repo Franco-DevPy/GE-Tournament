@@ -55,3 +55,17 @@ Après l'installation, vous pouvez lancer l'application en exécutant la command
 python main.py
  ```
 Cela ouvrira l'interface console de l'application où vous pourrez créer un tournoi, ajouter des joueurs et gérer les matchs.
+
+
+ 
+ # Étapes pour installer et utiliser Flake8 avec un rapport HTML
+
+Installation de flake8 et flake8-html
+ ```bash
+pip install flake8 flake8-html
+ ```
+
+Génération du rapport HTML
+ ```bash
+flake8 --format=html --htmldir=flake8_rapport
+ ```
