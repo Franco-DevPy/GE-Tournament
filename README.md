@@ -1,5 +1,5 @@
-HEAD
-Gestionnaire de Tournois d'Échecs
+
+## Gestionnaire de Tournois d'Échecs
 
 Description
 
