@@ -119,4 +119,3 @@ Après l'installation, vous pouvez lancer l'application en exécutant la command
 python main.py
    ```
 Cela ouvrira l'interface console de l'application où vous pourrez créer un tournoi, ajouter des joueurs et gérer les matchs.
->>>>>>> 846674afdeca927be5848ea3eabd507387b15469
